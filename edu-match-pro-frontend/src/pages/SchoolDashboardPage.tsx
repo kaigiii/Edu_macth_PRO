@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   ChartBarIcon, 
@@ -31,11 +32,25 @@ interface RecentActivity {
 }
 
 const SchoolDashboardPage = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'needs' | 'analytics'>('overview');
   
   const { data: stats, isLoading: statsLoading, error: statsError } = useFetch<SchoolDashboardStats>('http://localhost:3001/school_dashboard_stats');
   const { data: myNeeds, isLoading: needsLoading, error: needsError } = useFetch<SchoolNeed[]>('http://localhost:3001/my_needs');
   const { data: recentActivity, isLoading: activityLoading } = useFetch<RecentActivity[]>('http://localhost:3001/recent_activity');
+
+  // 處理按鈕點擊事件
+  const handleCreateNeed = () => {
+    navigate('/dashboard/create-need');
+  };
+
+  const handleViewNeed = (needId: string) => {
+    navigate(`/needs/${needId}`);
+  };
+
+  const handleEditNeed = (needId: string) => {
+    navigate(`/dashboard/edit-need/${needId}`);
+  };
 
   if (statsLoading) {
     return (
@@ -277,7 +292,10 @@ const SchoolDashboardPage = () => {
                   <span className="font-bold text-lg text-green-600">{stats?.successRate || 0}%</span>
                 </div>
                 <div className="pt-4 border-t border-gray-200">
-                  <button className="w-full bg-brand-blue text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-blue-dark transition-colors">
+                  <button 
+                    onClick={handleCreateNeed}
+                    className="w-full bg-brand-blue text-white py-3 px-4 rounded-lg font-semibold hover:bg-brand-blue-dark transition-colors"
+                  >
                     發布新需求
                   </button>
                 </div>
@@ -296,7 +314,10 @@ const SchoolDashboardPage = () => {
         >
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold text-gray-900">我的需求</h2>
-            <button className="bg-brand-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-blue-dark transition-colors flex items-center space-x-2">
+            <button 
+              onClick={handleCreateNeed}
+              className="bg-brand-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-brand-blue-dark transition-colors flex items-center space-x-2"
+            >
               <PlusIcon className="w-5 h-5" />
               <span>新增需求</span>
             </button>
@@ -322,10 +343,18 @@ const SchoolDashboardPage = () => {
                   <div className="relative group">
                     <NeedCard need={need} variant="admin" />
                     <div className="absolute top-4 right-4 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button className="bg-white/90 hover:bg-white p-2 rounded-lg shadow-lg transition-colors">
+                      <button 
+                        onClick={() => handleViewNeed(need.id)}
+                        className="bg-white/90 hover:bg-white p-2 rounded-lg shadow-lg transition-colors"
+                        title="查看需求"
+                      >
                         <EyeIcon className="w-4 h-4 text-gray-600" />
                       </button>
-                      <button className="bg-white/90 hover:bg-white p-2 rounded-lg shadow-lg transition-colors">
+                      <button 
+                        onClick={() => handleEditNeed(need.id)}
+                        className="bg-white/90 hover:bg-white p-2 rounded-lg shadow-lg transition-colors"
+                        title="編輯需求"
+                      >
                         <PencilIcon className="w-4 h-4 text-gray-600" />
                       </button>
                     </div>
