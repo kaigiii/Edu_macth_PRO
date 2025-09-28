@@ -14,8 +14,6 @@ const mockSchoolData = [
   { 
     id: 1, 
     name: '台東縣太麻里國小', 
-    lat: 22.6, 
-    lng: 121.0, 
     needs: ['電腦設備', '圖書資源'],
     students: 45,
     status: 'urgent' as const
@@ -23,8 +21,6 @@ const mockSchoolData = [
   { 
     id: 2, 
     name: '花蓮縣秀林國中', 
-    lat: 24.1, 
-    lng: 121.6, 
     needs: ['體育器材', '音樂設備'],
     students: 78,
     status: 'active' as const
@@ -32,8 +28,6 @@ const mockSchoolData = [
   { 
     id: 3, 
     name: '屏東縣霧台國小', 
-    lat: 23, 
-    lng: 121.3, 
     needs: ['教學設備', '圖書資源'],
     students: 32,
     status: 'urgent' as const
@@ -41,8 +35,6 @@ const mockSchoolData = [
   { 
     id: 4, 
     name: '南投縣信義國中', 
-    lat: 23.7, 
-    lng: 120.8, 
     needs: ['電腦設備', '實驗器材'],
     students: 156,
     status: 'active' as const
@@ -50,8 +42,6 @@ const mockSchoolData = [
   { 
     id: 5, 
     name: '嘉義縣阿里山國小', 
-    lat: 23.5, 
-    lng: 121, 
     needs: ['圖書資源', '教學設備'],
     students: 28,
     status: 'urgent' as const
@@ -59,8 +49,6 @@ const mockSchoolData = [
   { 
     id: 6, 
     name: '新竹縣尖石國中', 
-    lat: 24.7, 
-    lng: 121.2, 
     needs: ['體育器材', '電腦設備'],
     students: 89,
     status: 'active' as const
@@ -68,8 +56,6 @@ const mockSchoolData = [
   { 
     id: 7, 
     name: '苗栗縣泰安國小', 
-    lat: 24.4, 
-    lng: 120.9, 
     needs: ['音樂設備', '圖書資源'],
     students: 41,
     status: 'urgent' as const
@@ -77,8 +63,6 @@ const mockSchoolData = [
   { 
     id: 8, 
     name: '宜蘭縣大同國中', 
-    lat: 24.6, 
-    lng: 121.5, 
     needs: ['實驗器材', '體育器材'],
     students: 134,
     status: 'active' as const
