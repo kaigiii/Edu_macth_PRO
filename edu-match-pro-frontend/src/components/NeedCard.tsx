@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import type { SchoolNeed } from '../types';
 
 interface NeedCardProps {
@@ -10,6 +11,44 @@ interface NeedCardProps {
 }
 
 const NeedCard = ({ need, variant = 'public', onDelete, progress = 75 }: NeedCardProps) => {
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+
+  // 處理圖片載入錯誤
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoading(false);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  // 根據類別選擇備用圖片
+  const getFallbackImage = (category: string) => {
+    const basePath = import.meta.env.PROD ? '/Edu_macth_PRO' : '';
+    switch (category) {
+      case '硬體設備':
+        return `${basePath}/images/impact-stories/background-wall/01.jpg`;
+      case '師資/技能':
+        return `${basePath}/images/impact-stories/background-wall/05.jpg`;
+      case '體育器材':
+        return `${basePath}/images/impact-stories/background-wall/09.jpg`;
+      case '教學用品':
+        return `${basePath}/images/impact-stories/background-wall/02.jpg`;
+      case '圖書資源':
+        return `${basePath}/images/impact-stories/background-wall/03.jpg`;
+      case '音樂器材':
+        return `${basePath}/images/impact-stories/background-wall/04.jpg`;
+      case '科學器材':
+        return `${basePath}/images/impact-stories/background-wall/06.jpg`;
+      case '經費需求':
+        return `${basePath}/images/impact-stories/background-wall/07.jpg`;
+      default:
+        return `${basePath}/images/impact-stories/background-wall/01.jpg`;
+    }
+  };
+
   // 緊急程度樣式配置
   const getUrgencyConfig = (urgency: 'high' | 'medium' | 'low') => {
     switch (urgency) {
@@ -57,11 +96,42 @@ const NeedCard = ({ need, variant = 'public', onDelete, progress = 75 }: NeedCar
     >
       {/* Image */}
       <div className="h-56 overflow-hidden relative">
-        <img 
-          src={need.imageUrl} 
-          alt={need.title}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-        />
+        {imageLoading && (
+          <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        )}
+        
+        {!imageError ? (
+          <img 
+            src={need.imageUrl} 
+            alt={need.title}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            onError={handleImageError}
+            onLoad={handleImageLoad}
+            style={{ display: imageLoading ? 'none' : 'block' }}
+          />
+        ) : (
+          <img 
+            src={getFallbackImage(need.category)} 
+            alt={need.title}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+            onError={() => {
+              // 如果備用圖片也載入失敗，顯示預設背景
+              setImageError(true);
+            }}
+          />
+        )}
+        
+        {/* 如果所有圖片都載入失敗，顯示預設背景 */}
+        {imageError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+            <div className="text-white text-center">
+              <div className="text-4xl mb-2">📚</div>
+              <div className="text-sm font-medium">{need.category}</div>
+            </div>
+          </div>
+        )}
         
         {/* 緊急程度標籤 */}
         <motion.div 

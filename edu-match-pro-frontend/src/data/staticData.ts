@@ -14,7 +14,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "硬體設備",
     location: "花蓮縣秀林鄉",
     studentCount: 28,
-    imageUrl: "https://images.unsplash.com/photo-1517420532572-4b6a6c57f2f4?q=80&w=1287",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/01.jpg`,
     urgency: "high",
     sdgs: [4],
     description: "我們是花蓮山區的小學，孩子們對電腦課充滿期待，但學校只有 3 台 10 年前的舊電腦。希望能有 15 台筆記型電腦，讓每個孩子都能親手操作，體驗數位學習的樂趣。"
@@ -26,7 +26,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "師資/技能",
     location: "南投縣信義鄉",
     studentCount: 35,
-    imageUrl: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/05.jpg`,
     urgency: "medium",
     sdgs: [4],
     description: "我們是南投山區的小學，孩子們對程式設計充滿好奇，但缺乏專業師資。希望能有熱心的工程師志工，每週 2 小時遠距教學，帶領孩子們探索程式設計的奧秘。"
@@ -38,7 +38,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "體育器材",
     location: "台東縣長濱鄉",
     studentCount: 45,
-    imageUrl: "https://images.unsplash.com/photo-1551951239-1f4175b5a79a?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/09.jpg`,
     urgency: "low",
     sdgs: [3],
     description: "我們的孩子熱愛足球，夢想參加全國比賽，但學校的足球已經破舊不堪。希望能有 20 顆新足球和 2 個球門，讓孩子們在陽光下快樂奔跑。"
@@ -50,7 +50,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "教學用品",
     location: "屏東縣霧台鄉",
     studentCount: 22,
-    imageUrl: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/02.jpg`,
     urgency: "medium",
     sdgs: [4],
     description: "我們的孩子有豐富的藝術天賦，但缺乏繪畫材料。希望能有水彩、畫筆、畫紙等藝術用品，讓孩子們的創意能夠自由飛翔。"
@@ -62,7 +62,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "圖書資源",
     location: "嘉義縣阿里山鄉",
     studentCount: 18,
-    imageUrl: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/03.jpg`,
     urgency: "low",
     sdgs: [4],
     description: "我們的小圖書館書籍老舊，孩子們渴望閱讀新書。希望能有適合小學生閱讀的課外讀物，讓孩子們在書海中遨遊，培養閱讀習慣。"
@@ -74,7 +74,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "音樂器材",
     location: "新竹縣尖石鄉",
     studentCount: 32,
-    imageUrl: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/04.jpg`,
     urgency: "medium",
     sdgs: [4],
     description: "我們的孩子熱愛音樂，但學校缺乏樂器。希望能有烏克麗麗、口琴等樂器，讓孩子們能夠學習音樂，培養藝術素養。"
@@ -86,7 +86,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "科學器材",
     location: "苗栗縣泰安鄉",
     studentCount: 25,
-    imageUrl: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/06.jpg`,
     urgency: "high",
     sdgs: [4],
     description: "我們的孩子對科學充滿好奇，但缺乏實驗器材。希望能有顯微鏡、實驗器材等，讓孩子們能夠親手做實驗，探索科學的奧秘。"
@@ -98,7 +98,7 @@ export const schoolNeeds: SchoolNeed[] = [
     category: "經費需求",
     location: "宜蘭縣大同鄉",
     studentCount: 20,
-    imageUrl: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/07.jpg`,
     urgency: "medium",
     sdgs: [4],
     description: "我們的孩子很少離開山區，希望能有機會到城市參觀博物館、科技館。希望能有交通費補助，讓孩子們走出校園，開闊視野。"
