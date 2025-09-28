@@ -19,7 +19,6 @@ const MainLayout = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        
       >
         <div className="container mx-auto px-6 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -28,7 +27,6 @@ const MainLayout = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              
             >
               <div className="mb-4">
                 <h3 className="text-2xl font-bold text-white mb-2">智匯偏鄉</h3>
@@ -46,7 +44,6 @@ const MainLayout = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              
             >
               <h4 className="text-lg font-semibold mb-4">快速導航</h4>
               <div className="grid grid-cols-2 gap-4">
@@ -80,7 +77,6 @@ const MainLayout = () => {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              
             >
               <h4 className="text-lg font-semibold mb-4">聯絡我們</h4>
               <div className="space-y-3 mb-6">
@@ -158,7 +154,6 @@ const MainLayout = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            
           >
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-sm mb-4 md:mb-0">

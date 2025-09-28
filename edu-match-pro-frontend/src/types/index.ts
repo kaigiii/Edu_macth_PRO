@@ -2,13 +2,13 @@ export interface SchoolNeed {
   id: string;
   schoolName: string;
   title: string;
+  description: string;
   category: string;
   location: string;
   studentCount: number;
   imageUrl: string;
   urgency: 'high' | 'medium' | 'low';
   sdgs: number[];
-  description?: string;
 }
 
 export interface ImpactStory {

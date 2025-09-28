@@ -25,6 +25,7 @@ const CreateNeedPage = () => {
         id: `need-${Date.now()}`, // 生成唯一 ID
         schoolName: "測試學校", // 模擬學校名稱
         title: data.title,
+        description: data.description || "",
         category: data.category,
         location: data.location,
         studentCount: data.studentCount,

@@ -88,10 +88,7 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{
-            staggerChildren: 0.05,
-            delayChildren: 0.05
-          }}
+          transition={{ staggerChildren: 0.05, delayChildren: 0.05 }}
           className="flex flex-wrap justify-center items-center"
         >
           {titleWords.map((word, index) => (
@@ -99,14 +96,8 @@ const HeroSection = () => {
               key={index}
               className="inline-block text-center mx-1"
               initial={{ opacity: 0, y: 50 }}
-              animate={{ 
-                opacity: 1, 
-                y: 0,
-                transition: {
-                  duration: 0.1,
-                  ease: "easeOut"
-                }
-              }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.1, ease: "easeOut" }}
             >
               {word === ' ' ? '\u00A0' : word}
             </motion.span>

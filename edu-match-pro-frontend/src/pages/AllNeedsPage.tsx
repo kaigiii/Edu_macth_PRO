@@ -222,7 +222,6 @@ const AllNeedsPage = () => {
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
-              
               className="mt-4 pt-4 border-t border-gray-200"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

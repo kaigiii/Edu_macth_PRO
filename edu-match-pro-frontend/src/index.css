@@ -6,113 +6,42 @@
 
 @layer base {
   body {
-    background-color: #F9F9F9;
-    color: #212529;
-    font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    @apply bg-neutral-background text-neutral-900 font-sans antialiased;
   }
   
   /* 標題層次樣式 */
   h1 {
-    font-size: 2.25rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-  }
-  
-  @media (min-width: 768px) {
-    h1 {
-      font-size: 3rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    h1 {
-      font-size: 3.75rem;
-    }
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight;
   }
   
   h2 {
-    font-size: 1.875rem;
-    font-weight: 600;
-    margin-bottom: 1.25rem;
-    line-height: 1.1;
-  }
-  
-  @media (min-width: 768px) {
-    h2 {
-      font-size: 2.25rem;
-    }
+    @apply text-3xl md:text-4xl font-semibold mb-5 leading-tight;
   }
   
   h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    line-height: 1.1;
-  }
-  
-  @media (min-width: 768px) {
-    h3 {
-      font-size: 1.875rem;
-    }
+    @apply text-2xl md:text-3xl font-semibold mb-4 leading-tight;
   }
   
   h4 {
-    font-size: 1.25rem;
-    font-weight: 500;
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-  }
-  
-  @media (min-width: 768px) {
-    h4 {
-      font-size: 1.5rem;
-    }
+    @apply text-xl md:text-2xl font-medium mb-3 leading-snug;
   }
   
   h5 {
-    font-size: 1.125rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-  }
-  
-  @media (min-width: 768px) {
-    h5 {
-      font-size: 1.25rem;
-    }
+    @apply text-lg md:text-xl font-medium mb-2 leading-snug;
   }
   
   h6 {
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-  }
-  
-  @media (min-width: 768px) {
-    h6 {
-      font-size: 1.125rem;
-    }
+    @apply text-base md:text-lg font-medium mb-2 leading-snug;
   }
   
   /* 段落樣式 */
   p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
+    @apply text-base leading-relaxed mb-4;
   }
   
   /* 連結樣式 */
   a {
-    color: #2A4D8C;
-    transition: color 0.2s ease;
-  }
-  
-  a:hover {
-    color: #1E3A6E;
+    @apply text-[#2A4D8C] hover:text-[#1E3A6E] transition-colors duration-200;
   }
 }
 
@@ -133,4 +62,3 @@
     scroll-snap-align: center;
   }
 }
-

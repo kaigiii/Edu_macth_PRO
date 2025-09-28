@@ -20,19 +20,18 @@ const Header = () => {
     navigate('/');
   };
 
+  const navItemVariants = {
+    hover: { y: -2, color: '#2563eb' },
+    tap: { scale: 0.95 }
+  };
 
   return (
     <motion.header 
       className="fixed top-0 left-0 right-0 z-50 bg-white"
-      animate={isScrolled ? {
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(8px)',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
-      } : {
-        backgroundColor: 'rgba(255, 255, 255, 1)',
-        backdropFilter: 'blur(0px)',
-        boxShadow: '0 0 0 rgba(0,0,0,0)'
-      }}
+      animate={isScrolled ? 
+        { backgroundColor: 'rgba(255, 255, 255, 0.95)', backdropFilter: 'blur(8px)', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' } : 
+        { backgroundColor: 'rgba(255, 255, 255, 1)', backdropFilter: 'blur(0px)', boxShadow: '0 0 0 rgba(0,0,0,0)' }
+      }
       transition={{ duration: 0.3, ease: 'easeOut' }}
     >
       <div className="w-full max-w-7xl mx-auto flex justify-between items-center px-4 h-20 transition-all duration-300">
@@ -112,13 +111,13 @@ const Header = () => {
               )}
             </Menu>
 
-            <motion.div whileHover={{ y: -2, color: '#2A4D8C' }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ y: -2, color: '#3b82f6' }} whileTap={{ scale: 0.95 }}>
               <Link to="/needs" className="text-neutral-500 hover:text-brand-blue transition-colors">需求列表</Link>
             </motion.div>
-            <motion.div whileHover={{ y: -2, color: '#2A4D8C' }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ y: -2, color: '#3b82f6' }} whileTap={{ scale: 0.95 }}>
               <Link to="/stories" className="text-neutral-500 hover:text-brand-blue transition-colors">影響力故事</Link>
             </motion.div>
-            <motion.div whileHover={{ y: -2, color: '#2A4D8C' }} whileTap={{ scale: 0.95 }}>
+            <motion.div whileHover={{ y: -2, color: '#3b82f6' }} whileTap={{ scale: 0.95 }}>
               <Link to="/about" className="text-neutral-500 hover:text-brand-blue transition-colors">關於我們</Link>
           </motion.div>
           </div>
@@ -153,7 +152,7 @@ const Header = () => {
             </Menu>
             ) : (
               <>
-              <motion.div whileHover={{ y: -2, color: '#2A4D8C' }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ y: -2, color: '#3b82f6' }} whileTap={{ scale: 0.95 }}>
                 <Link to="/login" className="text-neutral-500 hover:text-brand-blue transition-colors font-medium">登入</Link>
                 </motion.div>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
