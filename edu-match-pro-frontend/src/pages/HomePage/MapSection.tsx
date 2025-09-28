@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
@@ -100,6 +101,7 @@ const calculateMapPosition = (lat: number, lng: number) => {
 };
 
 const MapSection = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
@@ -107,6 +109,11 @@ const MapSection = () => {
   const taiwanMapRef = useRef<TaiwanMapRef>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const [selectedSchool, setSelectedSchool] = useState<typeof mockSchoolData[0] | null>(null);
+
+  // 處理開始配對按鈕點擊
+  const handleStartMatching = () => {
+    navigate('/needs');
+  };
 
   useLayoutEffect(() => {
     if (!sectionRef.current || !titleRef.current || !descriptionRef.current || !mapRef.current || !statsRef.current) return;
@@ -418,6 +425,7 @@ const MapSection = () => {
             {/* 行動呼籲 */}
             <div className="pt-6">
               <motion.button
+                onClick={handleStartMatching}
                 className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
