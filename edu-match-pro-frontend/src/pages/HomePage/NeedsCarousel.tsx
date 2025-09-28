@@ -118,11 +118,6 @@ const NeedsCarousel = ({ needs }: NeedsCarouselProps) => {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* 左側漸變蒙版 - 讓卡片平滑滑入視野 */}
-      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white/60 to-transparent z-10" />
-      
-      {/* 右側漸變蒙版 - 讓卡片平滑滑出視野 */}
-      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white/60 to-transparent z-10" />
       
       <div className="flex flex-col items-center justify-center h-full relative z-20 px-4">
         <div className="text-center text-white max-w-6xl mx-auto w-full">
