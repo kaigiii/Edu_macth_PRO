@@ -139,7 +139,7 @@ const SolutionSection = () => {
       <div 
         className="sticky top-0 h-screen flex items-center justify-center"
         style={{
-          backgroundImage: 'url("/images/bg-3.jpg")',
+          backgroundImage: 'url("/Edu_macth_PRO/images/bg-3.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'

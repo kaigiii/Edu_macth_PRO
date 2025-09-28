@@ -72,7 +72,7 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
         console.log('開始載入地圖...');
 
         // 使用 fetch 載入 SVG 內容
-        const response = await fetch('/taiwan-map.svg');
+        const response = await fetch('/Edu_macth_PRO/taiwan-map.svg');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }

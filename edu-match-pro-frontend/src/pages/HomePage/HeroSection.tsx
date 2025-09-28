@@ -43,9 +43,9 @@ const HeroSection = () => {
           loop
           playsInline
           preload="metadata"
-          poster="/videos/taiwan-education-poster.jpg"
+          poster="/Edu_macth_PRO/videos/taiwan-education-poster.jpg"
         >
-          <source src="/videos/taiwan-education.mp4" type="video/mp4" />
+          <source src="/Edu_macth_PRO/videos/taiwan-education.mp4" type="video/mp4" />
           您的瀏覽器不支援影片播放。
         </video>
       )}
