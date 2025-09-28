@@ -31,7 +31,8 @@ jobs:
       - name: Install dependencies
         run: |
           cd edu-match-pro-frontend
-          npm ci
+          rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps
           
       - name: Build
         run: |

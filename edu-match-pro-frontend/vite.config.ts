@@ -8,5 +8,16 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          motion: ['framer-motion'],
+          charts: ['recharts'],
+          ui: ['@headlessui/react', '@heroicons/react']
+        }
+      }
+    }
   }
 })
