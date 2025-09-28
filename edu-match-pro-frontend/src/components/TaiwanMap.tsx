@@ -65,18 +65,13 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
     img.style.cursor = 'pointer';
     img.style.transition = 'all 0.3s ease';
     
-    // 去背效果：使用混合模式去除白色背景
-    img.style.mixBlendMode = 'multiply';
-    img.style.filter = 'brightness(1.2) contrast(1.3) saturate(1.1)';
+    // 應用去背樣式
+    img.classList.add('map-transparent-bg');
     
-    // 添加背景色以配合混合模式
+    // 設置容器樣式
     if (mapRef.current) {
-      mapRef.current.style.backgroundColor = '#f0f9ff'; // 淺藍色背景
+      mapRef.current.classList.add('map-container');
     }
-    
-    // 備用方案：如果混合模式效果不佳，使用 CSS 遮罩
-    // img.style.mask = 'linear-gradient(black, black)';
-    // img.style.webkitMask = 'linear-gradient(black, black)';
     
     console.log('地圖圖片樣式設置完成');
   }, []);
