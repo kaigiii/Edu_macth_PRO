@@ -1,11 +1,25 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { usePreloadAssets } from '../../hooks/usePreloadAssets';
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+
+  // 預載入關鍵資源
+  const { isLoading: assetsLoading, progress } = usePreloadAssets({
+    videos: ['/Edu_macth_PRO/videos/taiwan-education.mp4'],
+    images: [
+      '/Edu_macth_PRO/videos/taiwan-education-poster.jpg',
+      '/Edu_macth_PRO/images/bg-1.jpg',
+      '/Edu_macth_PRO/images/bg-2.jpg',
+      '/Edu_macth_PRO/images/bg-3.jpg',
+      '/Edu_macth_PRO/images/bg-4.jpg'
+    ],
+    priority: ['taiwan-education', 'bg-1', 'bg-2']
+  });
 
   // 標題文字，以詞為單位分割
   const titleText = "每個孩子，都值得最好的教育";
@@ -33,8 +47,18 @@ const HeroSection = () => {
       ref={sectionRef} 
       className="h-[120vh] relative flex items-center justify-center overflow-hidden"
     >
+      {/* 載入進度指示器 */}
+      {assetsLoading && (
+        <div className="absolute inset-0 z-50 bg-black/50 flex items-center justify-center">
+          <div className="text-center text-white">
+            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-lg font-medium">載入中... {Math.round(progress)}%</p>
+          </div>
+        </div>
+      )}
+
       {/* 背景影片 */}
-      {!videoError && (
+      {!videoError && !assetsLoading && (
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover z-0"
@@ -42,7 +66,7 @@ const HeroSection = () => {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           poster="/Edu_macth_PRO/videos/taiwan-education-poster.jpg"
         >
           <source src="/Edu_macth_PRO/videos/taiwan-education.mp4" type="video/mp4" />
