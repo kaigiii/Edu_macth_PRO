@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { HomePageAnimations } from './animation.config';
+import { getImagePath } from '../../utils/paths';
 
 const SolutionSection = () => {
   const mainRef = useRef<HTMLElement>(null);
@@ -139,7 +140,7 @@ const SolutionSection = () => {
       <div 
         className="sticky top-0 h-screen flex items-center justify-center"
         style={{
-          backgroundImage: 'url("/Edu_macth_PRO/images/bg-3.jpg")',
+          backgroundImage: `url("${getImagePath('/images/bg-3.jpg')}")`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'

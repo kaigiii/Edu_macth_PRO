@@ -28,7 +28,7 @@ export interface ResponsiveImageConfig {
  */
 export const getImpactStoryImagePath = (index: number): string => {
   const paddedIndex = String(index).padStart(2, '0');
-  return `/Edu_macth_PRO/images/impact-stories/background-wall/${paddedIndex}.jpg`;
+  return `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/${paddedIndex}.jpg`;
 };
 
 /**
@@ -36,7 +36,7 @@ export const getImpactStoryImagePath = (index: number): string => {
  */
 export const getFeaturedStoryImagePath = (index: number): string => {
   const paddedIndex = String(index).padStart(2, '0');
-  return `/Edu_macth_PRO/images/impact-stories/featured/featured-${paddedIndex}.jpg`;
+  return `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/featured/featured-${paddedIndex}.jpg`;
 };
 
 /**
@@ -143,6 +143,6 @@ export interface UseImageLoadConfig {
 export const IMPACT_STORY_IMAGES = {
   BACKGROUND_WALL_COUNT: 16,
   FEATURED_COUNT: 5,
-  BACKGROUND_WALL_PATH: '/Edu_macth_PRO/images/impact-stories/background-wall',
-  FEATURED_PATH: '/Edu_macth_PRO/images/impact-stories/featured'
+  BACKGROUND_WALL_PATH: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall`,
+  FEATURED_PATH: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/featured`
 } as const;

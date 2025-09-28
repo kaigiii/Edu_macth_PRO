@@ -17,7 +17,7 @@ const ValueSection = () => {
       title: "數據驅動的 ESG 報告",
       description: "一鍵生成可追溯的影響力報告，具體量化您的社會貢獻，完美整合至永續報告書。",
       color: "blue",
-      image: "/Edu_macth_PRO/images/impact-stories/featured/featured-01.jpg",
+      image: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/featured/featured-01.jpg`,
       stats: "95% 準確率",
       features: ["自動化報告生成", "數據可視化", "合規性檢查"]
     },
@@ -26,7 +26,7 @@ const ValueSection = () => {
       title: "提升品牌正面形象",
       description: "每一次成功的媒合都是一個動人的品牌故事。透過我們的平台，將您的善舉化為溫暖的品牌資產。",
       color: "amber",
-      image: "/Edu_macth_PRO/images/impact-stories/featured/featured-02.jpg",
+      image: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/featured/featured-02.jpg`,
       stats: "300+ 成功案例",
       features: ["品牌故事包裝", "媒體曝光", "社群影響力"]
     },
@@ -35,7 +35,7 @@ const ValueSection = () => {
       title: "精準媒合與高效執行",
       description: "告別傳統公益的耗時與不確定性。AI 引擎為您找到最契合的專案，確保每一份資源都發揮最大效益。",
       color: "emerald",
-      image: "/Edu_macth_PRO/images/impact-stories/featured/featured-03.jpg",
+      image: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/featured/featured-03.jpg`,
       stats: "80% 效率提升",
       features: ["AI 智能匹配", "專案追蹤", "效果評估"]
     }
@@ -83,7 +83,7 @@ const ValueSection = () => {
       ref={sectionRef} 
       className="py-24 relative overflow-hidden"
         style={{
-          backgroundImage: 'url("/Edu_macth_PRO/images/bg-2.jpg")',
+          backgroundImage: `url("${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/bg-2.jpg")`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
