@@ -8,6 +8,7 @@ export interface SchoolNeed {
   imageUrl: string;
   urgency: 'high' | 'medium' | 'low';
   sdgs: number[];
+  description?: string;
 }
 
 export interface ImpactStory {
