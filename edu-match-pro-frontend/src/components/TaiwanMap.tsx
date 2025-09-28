@@ -64,14 +64,7 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
     img.style.position = 'relative';
     img.style.cursor = 'pointer';
     img.style.transition = 'all 0.3s ease';
-    
-    // 應用去背樣式
-    img.classList.add('map-transparent-bg');
-    
-    // 設置容器樣式
-    if (mapRef.current) {
-      mapRef.current.classList.add('map-container');
-    }
+    img.style.filter = 'brightness(1.1) contrast(1.1)';
     
     console.log('地圖圖片樣式設置完成');
   }, []);
@@ -112,7 +105,7 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
       };
       
       // 設置圖片屬性
-      img.src = `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/taiwan-map.jpg`;
+      img.src = `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/taiwan-map.png`;
       img.alt = '台灣地圖';
       img.className = 'w-full h-full object-contain';
       img.style.cursor = 'pointer';

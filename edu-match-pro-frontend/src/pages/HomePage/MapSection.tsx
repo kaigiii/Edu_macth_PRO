@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
-import { TransparentTaiwanMap, TransparentTaiwanMapRef } from '../../components/TransparentTaiwanMap';
+import TaiwanMap, { TaiwanMapRef } from '../../components/TaiwanMap';
 import { HomePageAnimations } from './animation.config';
 
 // 註冊 ScrollTrigger 插件
@@ -104,7 +104,7 @@ const MapSection = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descriptionRef = useRef<HTMLParagraphElement>(null);
   const mapRef = useRef<HTMLDivElement>(null);
-  const taiwanMapRef = useRef<TransparentTaiwanMapRef>(null);
+  const taiwanMapRef = useRef<TaiwanMapRef>(null);
   const statsRef = useRef<HTMLDivElement>(null);
   const [selectedSchool, setSelectedSchool] = useState<typeof mockSchoolData[0] | null>(null);
 
@@ -239,7 +239,7 @@ const MapSection = () => {
           <div ref={mapRef} className="relative w-full order-2 lg:order-1">
             <div className="relative h-[400px] sm:h-[450px] md:h-[500px] lg:h-[600px] w-full flex items-start justify-center overflow-hidden pt-4 sm:pt-6 lg:pt-8">
               <div className="w-full h-full relative flex items-center justify-center">
-                  <TransparentTaiwanMap 
+                  <TaiwanMap 
                     ref={taiwanMapRef}
                     showAnimations={true}
                     highlightCounties={['台北市', '新北市', '桃園市', '台中市', '台南市', '高雄市']}
