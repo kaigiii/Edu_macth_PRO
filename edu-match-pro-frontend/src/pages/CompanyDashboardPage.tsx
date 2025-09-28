@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { 
   ChartBarIcon, 
   UserGroupIcon, 
@@ -14,6 +13,7 @@ import {
 } from '@heroicons/react/24/outline';
 import useFetch from '../hooks/useFetch';
 import NeedCard from '../components/NeedCard';
+import SmartExploration from '../components/SmartExploration';
 import type { SchoolNeed } from '../types';
 
 interface CompanyDashboardStats {
@@ -50,7 +50,7 @@ interface ImpactStory {
 
 const CompanyDashboardPage = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'impact' | 'analytics'>('overview');
-  const navigate = useNavigate();
+  const [showSmartExploration, setShowSmartExploration] = useState(false);
   
   const { data: stats, isLoading, error } = useFetch<CompanyDashboardStats>('http://localhost:3001/company_dashboard_stats');
   const { data: recommendedNeeds, isLoading: recommendationsLoading, error: recommendationsError } = useFetch<SchoolNeed[]>('http://localhost:3001/ai_recommended_needs');
@@ -330,32 +330,36 @@ const CompanyDashboardPage = () => {
         </div>
       </motion.div>
 
-      {/* 智慧探索按鈕 */}
+      {/* 智慧探索 */}
       <motion.div 
-        className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl shadow-lg p-6 mt-8 text-white"
+        className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl shadow-lg p-6 mt-8 border border-purple-200"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white/20 rounded-full p-3">
-              <SparklesIcon className="w-8 h-8 text-white" />
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="p-2 bg-purple-100 rounded-lg">
+              <SparklesIcon className="w-6 h-6 text-purple-600" />
             </div>
             <div>
-              <h3 className="text-xl font-bold">AI 智慧探索</h3>
-              <p className="text-purple-100">輸入您的捐贈條件，AI 將為您分析最佳投放方案</p>
+              <h2 className="text-2xl font-bold text-gray-900">智慧探索</h2>
+              <p className="text-gray-600">AI 驅動的捐贈策略分析</p>
             </div>
           </div>
           <motion.button
-            onClick={() => navigate('/smart-exploration')}
-            className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowSmartExploration(!showSmartExploration)}
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            開始探索
+            {showSmartExploration ? '收起' : '開始探索'}
           </motion.button>
         </div>
+        
+        {showSmartExploration && (
+          <SmartExploration onClose={() => setShowSmartExploration(false)} />
+        )}
       </motion.div>
 
       {/* AI 智慧推薦專案 */}
@@ -606,7 +610,6 @@ const CompanyDashboardPage = () => {
           </div>
         </motion.div>
       )}
-
     </div>
   );
 };

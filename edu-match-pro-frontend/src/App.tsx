@@ -14,7 +14,6 @@ import EditNeedPage from './pages/EditNeedPage';
 import MyNeedsPage from './pages/MyNeedsPage';
 import MyDonationsPage from './pages/MyDonationsPage';
 import ExploreNeedsPage from './pages/ExploreNeedsPage';
-import SmartExplorationPage from './pages/SmartExplorationPage';
 import ProfilePage from './pages/ProfilePage';
 import AllNeedsPage from './pages/AllNeedsPage';
 import LoginPage from './pages/LoginPage';
@@ -53,9 +52,6 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
           </Route>
         </Route>
-        
-        {/* 智慧探索頁面 */}
-        <Route path="/smart-exploration" element={<SmartExplorationPage />} />
         
         {/* 獨立路由 (不需要 MainLayout) */}
         <Route path="/login" element={<LoginPage />} />
