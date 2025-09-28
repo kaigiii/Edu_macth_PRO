@@ -1,12 +1,5 @@
 // src/pages/HomePage/animation.config.ts
 
-// 定義一個通用的 spring 動畫過渡效果
-export const springTransition = {
-  type: 'spring',
-  stiffness: 100,
-  damping: 30,
-  restDelta: 0.001,
-};
 
 export const HomePageAnimations = {
   // 區塊 3: 解決方案區塊的動畫節奏
