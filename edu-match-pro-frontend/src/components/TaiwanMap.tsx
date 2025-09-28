@@ -55,66 +55,34 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
     return mapRef.current.querySelector('#center-light') as SVGGElement | null;
   }, []);
 
-  // 優化的樣式設置函數
+  // 簡化的樣式設置函數 - 針對 JPG 圖片
   const setupMapStyles = useCallback(() => {
     if (!mapRef.current) return;
     
-    const svg = mapRef.current.querySelector('svg');
-    if (!svg) {
-      console.error('找不到 SVG 元素');
+    const img = mapRef.current.querySelector('img');
+    if (!img) {
+      console.error('找不到圖片元素');
       return;
     }
 
-    // 設置 SVG 容器樣式
-    svg.style.width = '100%';
-    svg.style.height = '100%';
-    svg.style.maxWidth = '100%';
-    svg.style.maxHeight = '100%';
-    svg.style.transform = 'scale(2.2)';
-    svg.style.transformOrigin = 'center center';
-    svg.style.display = 'block';
-    svg.style.margin = '0 auto';
-    svg.style.position = 'relative';
-    svg.style.top = '0%';
-    svg.style.left = '95%';
-    svg.style.transform = 'translate(-50%, -50%) scale(2.8)';
-    svg.style.backgroundColor = 'transparent';
-    svg.style.background = 'transparent';
+    // 設置圖片樣式
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'contain';
+    img.style.objectPosition = 'center';
+    img.style.transition = 'all 0.3s ease';
+    img.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))';
     
-    // 設置 viewBox
-    svg.setAttribute('viewBox', '0 0 1440 778');
-    
-    // 移除背景元素
-    const backgroundElements = svg.querySelectorAll('path[fill="#505050"], path[class*="bg"], rect[fill="#505050"]');
-    backgroundElements.forEach(element => {
-      const htmlElement = element as HTMLElement;
-      htmlElement.style.fill = 'transparent';
-      htmlElement.style.display = 'none';
+    // 添加懸停效果
+    img.addEventListener('mouseenter', () => {
+      img.style.transform = 'scale(1.05)';
     });
     
-    // 設置地圖路徑樣式
-    const paths = svg.querySelectorAll('path:not([fill="#505050"])');
-    paths.forEach((path, index) => {
-      const htmlElement = path as HTMLElement;
-      htmlElement.style.strokeWidth = '3';
-      htmlElement.style.stroke = '#ffffff';
-      htmlElement.style.fill = '#ffffff';
-      htmlElement.style.opacity = '0.8';
-      htmlElement.style.cursor = 'pointer';
-      htmlElement.style.transition = 'all 0.3s ease';
-      
-      // 添加 ID 以便動畫識別
-      if (!htmlElement.id) {
-        htmlElement.id = `county-${index}`;
-      }
-      
-      // 設置初始動畫狀態
-      htmlElement.style.opacity = '0.8';
-      htmlElement.style.transform = 'scale(0.8)';
-      htmlElement.style.transformOrigin = 'center center';
+    img.addEventListener('mouseleave', () => {
+      img.style.transform = 'scale(1)';
     });
     
-    console.log('SVG 樣式設置完成');
+    console.log('地圖圖片樣式設置完成');
   }, []);
 
   // 暴露方法給父組件
@@ -123,7 +91,7 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
     getCenterLightElement
   }), [getCountyElements, getCenterLightElement]);
 
-  // 優化的地圖載入邏輯
+  // 優化的地圖載入邏輯 - 使用 JPG 圖片
   const loadMap = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -133,49 +101,37 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
 
       console.log('開始載入地圖...');
 
-      // 檢查緩存
-      const cacheKey = 'taiwan-map-svg-v2';
-      const cachedSvg = sessionStorage.getItem(cacheKey);
+      // 創建圖片元素
+      const img = new Image();
       
-      if (cachedSvg) {
-        console.log('使用緩存的地圖數據');
-        mapRef.current.innerHTML = cachedSvg;
-        setupMapStyles();
-        setIsLoading(false);
-        return;
-      }
-
-      // 使用 fetch 載入 SVG 內容
-      const response = await fetch('/Edu_macth_PRO/taiwan-map.svg', {
-        cache: 'force-cache',
-        headers: {
-          'Cache-Control': 'max-age=31536000'
+      img.onload = () => {
+        if (mapRef.current) {
+          mapRef.current.innerHTML = '';
+          mapRef.current.appendChild(img);
+          setupMapStyles();
+          console.log('地圖圖片載入成功');
         }
-      });
+        setIsLoading(false);
+      };
       
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      img.onerror = () => {
+        console.error('地圖圖片載入失敗');
+        setError('地圖載入失敗，請重新整理頁面');
+        setIsLoading(false);
+      };
       
-      const svgText = await response.text();
-      console.log('SVG 內容載入成功，長度:', svgText.length);
-      
-      // 緩存 SVG 內容
-      sessionStorage.setItem(cacheKey, svgText);
-      
-      // 直接設置 innerHTML
-      mapRef.current.innerHTML = svgText;
-      
-      // 設置樣式
-      setupMapStyles();
-      setIsLoading(false);
+      // 設置圖片屬性
+      img.src = '/Edu_macth_PRO/images/taiwan-map.jpg';
+      img.alt = '台灣地圖';
+      img.className = 'w-full h-full object-contain';
+      img.style.cursor = 'pointer';
 
     } catch (err) {
       console.error('載入地圖時發生錯誤:', err);
       setError('地圖載入失敗，請重新整理頁面');
       setIsLoading(false);
     }
-  }, [setupMapStyles]);
+  }, []);
 
   useEffect(() => {
     loadMap();
