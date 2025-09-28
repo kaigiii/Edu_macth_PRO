@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   ChartBarIcon, 
   UserGroupIcon, 
@@ -13,7 +14,6 @@ import {
 } from '@heroicons/react/24/outline';
 import useFetch from '../hooks/useFetch';
 import NeedCard from '../components/NeedCard';
-import SmartExploration from '../components/SmartExploration';
 import type { SchoolNeed } from '../types';
 
 interface CompanyDashboardStats {
@@ -50,7 +50,7 @@ interface ImpactStory {
 
 const CompanyDashboardPage = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'impact' | 'analytics'>('overview');
-  const [showSmartExploration, setShowSmartExploration] = useState(false);
+  const navigate = useNavigate();
   
   const { data: stats, isLoading, error } = useFetch<CompanyDashboardStats>('http://localhost:3001/company_dashboard_stats');
   const { data: recommendedNeeds, isLoading: recommendationsLoading, error: recommendationsError } = useFetch<SchoolNeed[]>('http://localhost:3001/ai_recommended_needs');
@@ -348,7 +348,7 @@ const CompanyDashboardPage = () => {
             </div>
           </div>
           <motion.button
-            onClick={() => setShowSmartExploration(true)}
+            onClick={() => navigate('/smart-exploration')}
             className="bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -607,10 +607,6 @@ const CompanyDashboardPage = () => {
         </motion.div>
       )}
 
-      {/* 智慧探索模態框 */}
-      {showSmartExploration && (
-        <SmartExploration onClose={() => setShowSmartExploration(false)} />
-      )}
     </div>
   );
 };
