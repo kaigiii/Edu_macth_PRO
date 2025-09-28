@@ -37,3 +37,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./edu-match-pro-frontend/dist
+        cname: # 留空使用預設的 github.io 域名
