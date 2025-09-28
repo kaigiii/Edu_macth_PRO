@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChartBarIcon, ShieldCheckIcon, SparklesIcon } from '@heroicons/react/24/outline';
@@ -6,10 +7,37 @@ import { ChartBarIcon, ShieldCheckIcon, SparklesIcon } from '@heroicons/react/24
 gsap.registerPlugin(ScrollTrigger);
 
 const ValueSection = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardRefs = useRef<HTMLDivElement[]>([]);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  // 處理按鈕點擊事件
+  const handleLearnMore = (index: number) => {
+    // 根據不同的價值卡片導航到不同頁面
+    switch (index) {
+      case 0: // 數據驅動的 ESG 報告
+        navigate('/for-companies');
+        break;
+      case 1: // 提升品牌正面形象
+        navigate('/stories');
+        break;
+      case 2: // 精準媒合與高效執行
+        navigate('/needs');
+        break;
+      default:
+        navigate('/for-companies');
+    }
+  };
+
+  const handleGetStarted = () => {
+    navigate('/for-companies');
+  };
+
+  const handleLearnMoreAbout = () => {
+    navigate('/about');
+  };
 
   const values = [
     {
@@ -186,11 +214,14 @@ const ValueSection = () => {
                 <div className={`mt-4 sm:mt-6 transition-all duration-300 ${
                   hoveredCard === index ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}>
-                  <button className={`w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
-                    value.color === 'blue' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 
-                    value.color === 'amber' ? 'bg-amber-600 hover:bg-amber-700 text-white' : 
-                    'bg-emerald-600 hover:bg-emerald-700 text-white'
-                  }`}>
+                  <button 
+                    onClick={() => handleLearnMore(index)}
+                    className={`w-full py-2 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 ${
+                      value.color === 'blue' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 
+                      value.color === 'amber' ? 'bg-amber-600 hover:bg-amber-700 text-white' : 
+                      'bg-emerald-600 hover:bg-emerald-700 text-white'
+                    }`}
+                  >
                     了解更多
                   </button>
                 </div>
@@ -212,10 +243,16 @@ const ValueSection = () => {
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">準備開始您的永續之旅？</h3>
             <p className="text-sm sm:text-base text-white/90 mb-4 sm:mb-6">加入我們，讓每一次善舉都成為可量化的影響力</p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button className="bg-white text-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-100 transition-colors duration-300 shadow-lg">
+              <button 
+                onClick={handleGetStarted}
+                className="bg-white text-blue-600 px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+              >
                 立即開始
               </button>
-              <button className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base hover:bg-white hover:text-blue-600 transition-all duration-300">
+              <button 
+                onClick={handleLearnMoreAbout}
+                className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base hover:bg-white hover:text-blue-600 transition-all duration-300"
+              >
                 了解更多
               </button>
             </div>
