@@ -38,7 +38,7 @@ const Header = () => {
         {/* Logo */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Link to="/" className="text-xl font-bold text-neutral-900">
-            智匯偏鄉
+            智慧偏鄉 Edu macth PRO
           </Link>
         </motion.div>
 
