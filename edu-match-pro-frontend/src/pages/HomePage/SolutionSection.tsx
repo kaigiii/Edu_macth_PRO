@@ -154,8 +154,7 @@ const SolutionSection = () => {
                 className="absolute inset-0 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden"
                 style={{
                   opacity: ui1Opacity,
-                  y: ui1Y,
-                  scale: ui1Scale
+                  transform: `translateY(${ui1Y}px) scale(${ui1Scale})`
                 }}
               >
                 <div className="w-full h-full bg-gradient-to-br from-brand-blue-light to-white p-6">
@@ -187,8 +186,7 @@ const SolutionSection = () => {
                 className="absolute inset-0 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden"
                 style={{
                   opacity: ui2Opacity,
-                  y: ui2Y,
-                  scale: ui2Scale
+                  transform: `translateY(${ui2Y}px) scale(${ui2Scale})`
                 }}
               >
                 <div className="w-full h-full bg-gradient-to-br from-brand-orange-light to-white p-6">
@@ -227,8 +225,7 @@ const SolutionSection = () => {
                 className="absolute inset-0 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden"
                 style={{
                   opacity: ui3Opacity,
-                  y: ui3Y,
-                  scale: ui3Scale
+                  transform: `translateY(${ui3Y}px) scale(${ui3Scale})`
                 }}
               >
                 <div className="w-full h-full bg-gradient-to-br from-green-50 to-white p-6">
@@ -263,8 +260,7 @@ const SolutionSection = () => {
                 className="absolute inset-0 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden"
                 style={{
                   opacity: ui4Opacity,
-                  y: ui4Y,
-                  scale: ui4Scale
+                  transform: `translateY(${ui4Y}px) scale(${ui4Scale})`
                 }}
               >
                 <div className="w-full h-full bg-gradient-to-br from-purple-50 to-white p-6">
@@ -301,8 +297,7 @@ const SolutionSection = () => {
                 className="absolute inset-0 w-full max-w-sm sm:max-w-md lg:max-w-lg mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden"
                 style={{
                   opacity: ui5Opacity,
-                  y: ui5Y,
-                  scale: ui5Scale
+                  transform: `translateY(${ui5Y}px) scale(${ui5Scale})`
                 }}
               >
                 <div className="w-full h-full bg-gradient-to-br from-blue-50 to-white p-6">

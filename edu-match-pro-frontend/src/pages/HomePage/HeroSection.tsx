@@ -86,33 +86,25 @@ const HeroSection = () => {
         transition={{ duration: 0.1 }}
       >
         <motion.div
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.05,
-                delayChildren: 0.05
-              }
-            }
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            staggerChildren: 0.05,
+            delayChildren: 0.05
           }}
-          initial="hidden"
-          animate="visible"
           className="flex flex-wrap justify-center items-center"
         >
           {titleWords.map((word, index) => (
             <motion.span
               key={index}
               className="inline-block text-center mx-1"
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0,
-                  transition: {
-                    duration: 0.1,
-                    ease: "easeOut"
-                  }
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                transition: {
+                  duration: 0.1,
+                  ease: "easeOut"
                 }
               }}
             >
