@@ -156,9 +156,10 @@ const MainLayout = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="flex flex-col md:flex-row justify-between items-center">
-              <p className="text-gray-400 text-sm mb-4 md:mb-0">
-                © 2025 智匯偏鄉. All Rights Reserved.
-              </p>
+              <div className="text-gray-400 text-sm mb-4 md:mb-0">
+                <p>© 2025 智匯偏鄉 (Edu-Match Pro). All Rights Reserved.</p>
+                <p className="text-xs mt-1">由 范愷鈞、劉竑毅、史靖崴 共同打造</p>
+              </div>
               <div className="flex space-x-6 text-sm">
                 <a href="/terms" className="text-gray-400 hover:text-white transition-colors duration-200">
                   服務條款

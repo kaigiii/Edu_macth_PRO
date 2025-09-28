@@ -13,28 +13,22 @@ import {
 const AboutPage = () => {
   const teamMembers = [
     {
-      name: "張志明",
-      role: "創辦人 & CEO",
-      description: "前 Google 工程師，專精於 AI 與大數據分析",
-      avatar: "👨‍💻"
+      name: "范愷鈞",
+      role: "角色與描述留白",
+      description: "致力於用科技改變教育現況",
+      avatar: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/team/member-1.jpg`
     },
     {
-      name: "李美華",
-      role: "技術長",
-      description: "資深全端工程師，擁有 10+ 年開發經驗",
-      avatar: "👩‍💻"
+      name: "劉竑毅",
+      role: "角色與描述留白",
+      description: "致力於用科技改變教育現況",
+      avatar: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/team/member-2.jpg`
     },
     {
-      name: "王建國",
-      role: "產品經理",
-      description: "專精於教育科技產品設計與用戶體驗",
-      avatar: "👨‍🎓"
-    },
-    {
-      name: "陳雅婷",
-      role: "營運總監",
-      description: "社會企業專家，致力於偏鄉教育發展",
-      avatar: "👩‍🏫"
+      name: "史靖崴",
+      role: "角色與描述留白",
+      description: "致力於用科技改變教育現況",
+      avatar: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/team/member-3.jpg`
     }
   ];
 
@@ -115,16 +109,16 @@ const AboutPage = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">一個改變的開始</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">一個改變的信念</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                2023 年春天，我們的創辦人張志明走進南投信義鄉的一間小學。教室裡，孩子們圍著一台 10 年前的舊電腦，眼中閃爍著對知識的渴望，卻被硬體限制束縛著夢想。同一時間，台北的學校裡，最新的 iPad 和 VR 設備靜靜地躺在儲物櫃中。
+                在台灣的許多角落，教室裡的孩子們眼中閃爍著同樣對知識的渴望，但他們眼前的螢幕，卻可能隔著一個世代的距離。我們看見了這道資源的鴻溝，它不該是限制任何孩子夢想的邊界。
               </p>
               <p>
-                「為什麼同樣是台灣的孩子，學習的機會卻如此不同？」這個問題深深震撼著他。那一刻，他明白科技不應該只是少數人的特權，而應該是創造公平的工具。於是，他決定用自己 15 年的技術經驗，打造一個能夠精準媒合教育資源的平台。
+                「為什麼同樣努力，機會卻不均等？」這個問題，是我們行動的起點。我們相信，科技不應是加劇差距的工具，而應是鋪平道路的橋樑。
               </p>
               <p>
-                經過 18 個月的深度調研、技術開發與實地測試，智匯偏鄉正式誕生。我們用 AI 技術分析需求，用數據驅動決策，用科技縮小差距，讓每個孩子都能在平等的起跑線上，追逐屬於自己的夢想。
+                於是，「智匯偏鄉」誕生了。我們不是旁觀者，而是搭建者。我們用 AI 技術分析真實的需求，用數據驅動每一次資源的流動，用科技的力量，將企業的善意精準地送達最需要的地方。我們正在做的，就是確保每個孩子，無論身在何處，都能在平等的起跑線上，勇敢追逐自己的夢想。
               </p>
             </div>
           </motion.div>
@@ -210,7 +204,18 @@ const AboutPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <div className="text-6xl mb-4">{member.avatar}</div>
+              <img 
+                className="w-32 h-32 mx-auto rounded-full mb-4 object-cover" 
+                src={member.avatar} 
+                alt={member.name}
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  target.style.display = 'none';
+                  const fallback = target.nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'flex';
+                }}
+              />
+              <div className="text-6xl mb-4 hidden" style={{ display: 'none' }}>👤</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
               <p className="text-blue-600 font-semibold mb-2">{member.role}</p>
               <p className="text-gray-600 text-sm">{member.description}</p>
