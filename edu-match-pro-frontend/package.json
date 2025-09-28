@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "mock:api": "json-server --watch db.json --port 3001",
-    "optimize:assets": "node scripts/optimize-assets.js"
+    "optimize:assets": "node scripts/optimize-assets.js",
+    "optimize:video": "node scripts/optimize-video.js",
+    "optimize:all": "npm run optimize:assets && npm run optimize:video"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.0",

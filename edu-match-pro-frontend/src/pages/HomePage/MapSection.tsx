@@ -241,7 +241,6 @@ const MapSection = () => {
               <div className="w-full h-full relative flex items-center justify-center">
                 <TaiwanMap 
                   ref={taiwanMapRef}
-                  showAnimations={true}
                 />
               
                 {/* 學校標記 */}

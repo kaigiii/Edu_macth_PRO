@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { usePreloadAssets } from '../../hooks/usePreloadAssets';
+import { useSmartPreload } from '../../hooks/useSmartPreload';
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -8,18 +8,50 @@ const HeroSection = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
 
-  // 預載入關鍵資源
-  const { isLoading: assetsLoading, progress } = usePreloadAssets({
-    videos: ['/Edu_macth_PRO/videos/taiwan-education.mp4'],
-    images: [
-      '/Edu_macth_PRO/videos/taiwan-education-poster.jpg',
-      '/Edu_macth_PRO/images/bg-1.jpg',
-      '/Edu_macth_PRO/images/bg-2.jpg',
+  // 智能預載入關鍵資源
+  const { isLoading: assetsLoading, loadingProgress } = useSmartPreload({
+    criticalAssets: [
+      '/Edu_macth_PRO/videos/taiwan-education-poster.jpg', // 優先載入封面
+      '/Edu_macth_PRO/images/bg-1.jpg', // 主要背景
+      '/Edu_macth_PRO/images/bg-2.jpg'  // 次要背景
+    ],
+    lazyAssets: [
+      '/Edu_macth_PRO/videos/taiwan-education.mp4', // 影片延遲載入
       '/Edu_macth_PRO/images/bg-3.jpg',
       '/Edu_macth_PRO/images/bg-4.jpg'
     ],
-    priority: ['taiwan-education', 'bg-1', 'bg-2']
+    preloadThreshold: 3000 // 3秒後開始懶載入
   });
+
+  // 影片預載入優化
+  useEffect(() => {
+    if (!assetsLoading && videoRef.current) {
+      const video = videoRef.current;
+      
+      // 設置影片載入策略
+      video.preload = 'metadata';
+      video.load();
+      
+      // 監聽載入事件
+      const handleCanPlay = () => {
+        console.log('影片可以播放');
+        setVideoLoaded(true);
+      };
+      
+      const handleError = () => {
+        console.log('影片載入失敗');
+        setVideoError(true);
+      };
+      
+      video.addEventListener('canplay', handleCanPlay);
+      video.addEventListener('error', handleError);
+      
+      return () => {
+        video.removeEventListener('canplay', handleCanPlay);
+        video.removeEventListener('error', handleError);
+      };
+    }
+  }, [assetsLoading]);
 
   // 標題文字，以詞為單位分割
   const titleText = "每個孩子，都值得最好的教育";
@@ -52,7 +84,7 @@ const HeroSection = () => {
         <div className="absolute inset-0 z-50 bg-black/50 flex items-center justify-center">
           <div className="text-center text-white">
             <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-lg font-medium">載入中... {Math.round(progress)}%</p>
+            <p className="text-lg font-medium">載入中... {Math.round(loadingProgress)}%</p>
           </div>
         </div>
       )}
