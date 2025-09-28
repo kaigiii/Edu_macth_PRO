@@ -14,6 +14,7 @@ import EditNeedPage from './pages/EditNeedPage';
 import MyNeedsPage from './pages/MyNeedsPage';
 import MyDonationsPage from './pages/MyDonationsPage';
 import ExploreNeedsPage from './pages/ExploreNeedsPage';
+import SmartExplorationPage from './pages/SmartExplorationPage';
 import ProfilePage from './pages/ProfilePage';
 import AllNeedsPage from './pages/AllNeedsPage';
 import LoginPage from './pages/LoginPage';
@@ -45,6 +46,7 @@ function App() {
             <Route path="school" element={<SchoolDashboardPage />} />
             <Route path="company" element={<CompanyDashboardPage />} />
             <Route path="my-donations" element={<MyDonationsPage />} />
+            <Route path="smart-exploration" element={<SmartExplorationPage />} />
             <Route path="explore-needs" element={<ExploreNeedsPage />} />
             <Route path="create-need" element={<CreateNeedPage />} />
             <Route path="edit-need/:needId" element={<EditNeedPage />} />

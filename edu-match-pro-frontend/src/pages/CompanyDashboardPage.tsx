@@ -8,12 +8,10 @@ import {
   CheckCircleIcon,
   EyeIcon,
   HeartIcon,
-  StarIcon,
-  SparklesIcon
+  StarIcon
 } from '@heroicons/react/24/outline';
 import useFetch from '../hooks/useFetch';
 import NeedCard from '../components/NeedCard';
-import SmartExploration from '../components/SmartExploration';
 import type { SchoolNeed } from '../types';
 
 interface CompanyDashboardStats {
@@ -50,7 +48,6 @@ interface ImpactStory {
 
 const CompanyDashboardPage = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'projects' | 'impact' | 'analytics'>('overview');
-  const [showSmartExploration, setShowSmartExploration] = useState(false);
   
   const { data: stats, isLoading, error } = useFetch<CompanyDashboardStats>('http://localhost:3001/company_dashboard_stats');
   const { data: recommendedNeeds, isLoading: recommendationsLoading, error: recommendationsError } = useFetch<SchoolNeed[]>('http://localhost:3001/ai_recommended_needs');
@@ -137,38 +134,6 @@ const CompanyDashboardPage = () => {
           ))}
         </div>
       </div>
-
-      {/* 智慧探索 */}
-      <motion.div 
-        className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl shadow-lg p-6 mb-8 border border-purple-200"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <SparklesIcon className="w-6 h-6 text-purple-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">智慧探索</h2>
-              <p className="text-gray-600">AI 驅動的捐贈策略分析</p>
-            </div>
-          </div>
-          <motion.button
-            onClick={() => setShowSmartExploration(!showSmartExploration)}
-            className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {showSmartExploration ? '收起' : '開始探索'}
-          </motion.button>
-        </div>
-        
-        {showSmartExploration && (
-          <SmartExploration onClose={() => setShowSmartExploration(false)} />
-        )}
-      </motion.div>
 
       {/* 總覽標籤頁 */}
       {activeTab === 'overview' && (
@@ -367,7 +332,7 @@ const CompanyDashboardPage = () => {
         className="bg-gradient-to-br from-brand-orange/5 to-brand-orange/10 rounded-xl shadow-lg p-6 mt-8 border border-brand-orange/20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
       >
         <div className="flex items-center justify-between mb-6">
           <div>

@@ -38,6 +38,9 @@ const DashboardLayout = () => {
                 <Link to="/dashboard/my-donations" className="block py-2 px-4 rounded hover:bg-gray-700 transition-colors text-white font-medium hover:text-white">
                   我的捐贈
                 </Link>
+                <Link to="/dashboard/smart-exploration" className="block py-2 px-4 rounded hover:bg-gray-700 transition-colors text-white font-medium hover:text-white">
+                  智慧探索
+                </Link>
                 <Link to="/dashboard/explore-needs" className="block py-2 px-4 rounded hover:bg-gray-700 transition-colors text-white font-medium hover:text-white">
                   探索需求
                 </Link>
