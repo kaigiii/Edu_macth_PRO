@@ -34,21 +34,12 @@ const CreateNeedPage = () => {
         sdgs: [4] // 預設 SDG 目標
       };
 
-      // 發送 POST 請求到 Mock API
-      const response = await fetch('http://localhost:3001/school_needs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newNeed),
-      });
-
-      if (response.ok) {
-        toast.success('需求已成功提交！');
-        navigate('/dashboard/school'); // 跳轉回儀表板
-      } else {
-        throw new Error('提交失敗');
-      }
+      // 使用新的 API 工具
+      const { createNeed } = await import('../utils/api');
+      await createNeed(newNeed);
+      
+      toast.success('需求已成功提交！');
+      navigate('/dashboard/school'); // 跳轉回儀表板
     } catch (error) {
       console.error('提交需求時發生錯誤:', error);
       toast.error('提交失敗，請稍後再試');

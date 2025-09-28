@@ -35,20 +35,11 @@ const EditNeedPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      const response = await fetch(`http://localhost:3001/school_needs/${needId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        toast.success('需求更新成功！');
-        navigate('/dashboard/my-needs');
-      } else {
-        throw new Error('更新失敗');
-      }
+      const { updateNeed } = await import('../utils/api');
+      await updateNeed(needId!, data);
+      
+      toast.success('需求更新成功！');
+      navigate('/dashboard/my-needs');
     } catch (error) {
       console.error('更新需求時發生錯誤:', error);
       toast.error('更新失敗，請稍後再試');
