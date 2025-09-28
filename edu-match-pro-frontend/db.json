@@ -104,6 +104,20 @@
         4
       ],
       "description": "我們的孩子對科學充滿好奇，但缺乏實驗器材。希望能有顯微鏡、實驗器材等，讓孩子們能夠親手做實驗，探索科學的奧秘。"
+    },
+    {
+      "id": "need-1759078403461",
+      "schoolName": "測試學校",
+      "title": "需要一台電腦",
+      "description": "",
+      "category": "硬體設備",
+      "location": "台東縣",
+      "studentCount": "1",
+      "imageUrl": "https://images.unsplash.com/photo-1517420532572-4b6a6c57f2f4?q=80&w=1287",
+      "urgency": "medium",
+      "sdgs": [
+        4
+      ]
     }
   ],
   "my_needs": [

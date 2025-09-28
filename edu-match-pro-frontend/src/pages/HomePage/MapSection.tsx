@@ -85,19 +85,21 @@ const mockSchoolData = [
   },
 ];
 
-// 台灣地圖的邊界範圍
-const TAIWAN_BOUNDS = {
-  north: 25.3,
-  south: 21.9,
-  east: 122.0,
-  west: 120.1
-};
-
-// 計算在地圖上的相對位置
-const calculateMapPosition = (lat: number, lng: number) => {
-  const x = ((lng - TAIWAN_BOUNDS.west) / (TAIWAN_BOUNDS.east - TAIWAN_BOUNDS.west)) * 100;
-  const y = ((TAIWAN_BOUNDS.north - lat) / (TAIWAN_BOUNDS.north - TAIWAN_BOUNDS.south)) * 100;
-  return { x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) };
+// 100x100 網格系統的標記位置（基於台灣地圖的實際地理位置）
+const getMarkerPosition = (id: number) => {
+  // 根據台灣地圖的實際地理位置在 100x100 網格中分配位置
+  const positions: { [key: number]: { x: number; y: number } } = {
+    1: { x: 20, y: 30 },  // 台東縣太麻里國小 (東部偏南)
+    2: { x: 30, y: 25 },  // 花蓮縣秀林國中 (東部偏北)
+    3: { x: 15, y: 40 },  // 屏東縣霧台國小 (南部)
+    4: { x: 25, y: 35 },  // 南投縣信義國中 (中部偏南)
+    5: { x: 22, y: 38 },  // 嘉義縣阿里山國小 (中南部)
+    6: { x: 35, y: 30 },  // 新竹縣尖石國中 (北部)
+    7: { x: 30, y: 35 },  // 苗栗縣泰安國小 (中北部)
+    8: { x: 40, y: 25 },  // 宜蘭縣大同國中 (東北部)
+  };
+  
+  return positions[id] || { x: 50, y: 50 }; // 預設位置
 };
 
 const MapSection = () => {
@@ -255,9 +257,9 @@ const MapSection = () => {
                     }}
                   />
               
-                {/* 學校標記 */}
+                {/* 學校標記 - 使用 100x100 網格系統 */}
                 {mockSchoolData.map((school) => {
-                  const position = calculateMapPosition(school.lat, school.lng);
+                  const position = getMarkerPosition(school.id);
                   return (
                     <div
                       key={school.id}
