@@ -6,13 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:optimized": "npm run optimize:assets && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "mock:api": "json-server --watch db.json --port 3001",
-    "optimize:assets": "node scripts/optimize-assets.js",
-    "optimize:video": "node scripts/optimize-video.js",
-    "optimize:all": "npm run optimize:assets && npm run optimize:video"
+    "mock:api": "json-server --watch db.json --port 3001"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.0",

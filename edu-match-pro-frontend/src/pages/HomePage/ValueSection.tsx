@@ -118,10 +118,22 @@ const ValueSection = () => {
                 <img 
                   src={value.image} 
                   alt={value.title}
-                  loading="lazy"
-                  decoding="async"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = target.nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
                 />
+                {/* 圖片載入失敗的備用顯示 */}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-4xl"
+                  style={{ display: 'none' }}
+                >
+                  📸
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 
                 {/* 圖標覆蓋層 */}

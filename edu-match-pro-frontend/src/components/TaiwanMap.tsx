@@ -1,66 +1,130 @@
-import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle, useCallback, useMemo } from 'react';
+import { motion } from 'framer-motion';
 
 interface TaiwanMapProps {
   highlightCounties?: string[];
-  onCountyClick?: (county: string) => void;
-  className?: string;
+  onCountyClick?: (countyId: string) => void;
+  showAnimations?: boolean;
+  countyRefs?: React.RefObject<SVGGElement>[];
 }
 
 export interface TaiwanMapRef {
-  highlightCounty: (county: string) => void;
-  resetHighlights: () => void;
+  getCountyElements: () => SVGGElement[];
+  getCenterLightElement: () => SVGGElement | null;
 }
 
-const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
-  highlightCounties = [],
+export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({ 
+  highlightCounties = [], 
   onCountyClick,
-  className = ''
+  showAnimations = true,
+  countyRefs = []
 }, ref) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const setupMapStyles = () => {
+  // 優化的縣市元素獲取
+  const getCountyElements = useCallback(() => {
+    if (!mapRef.current) return [];
+    
+    const countySelectors = [
+      'g[id^="county-"]',
+      'g[id*="county"]',
+      'path[id^="county-"]',
+      'path[id*="county"]',
+      'g[class*="county"]',
+      'path[class*="county"]'
+    ];
+    
+    for (const selector of countySelectors) {
+      const found = Array.from(mapRef.current.querySelectorAll(selector)) as SVGGElement[];
+      if (found.length > 0) {
+        console.log(`使用選擇器 ${selector} 找到 ${found.length} 個元素`);
+        return found;
+      }
+    }
+    
+    // 備用方案：使用所有 path 元素
+    const fallbackElements = Array.from(mapRef.current.querySelectorAll('path')) as SVGGElement[];
+    console.log(`使用通用 path 選擇器找到 ${fallbackElements.length} 個元素`);
+    return fallbackElements;
+  }, []);
+
+  const getCenterLightElement = useCallback(() => {
+    if (!mapRef.current) return null;
+    return mapRef.current.querySelector('#center-light') as SVGGElement | null;
+  }, []);
+
+  // 優化的樣式設置函數
+  const setupMapStyles = useCallback(() => {
     if (!mapRef.current) return;
     
-    // 設置 SVG 樣式
     const svg = mapRef.current.querySelector('svg');
-    if (svg) {
-      // 設置 SVG 容器樣式，調整位置和縮放
-      svg.style.width = '100%';
-      svg.style.height = '100%';
-      svg.style.maxWidth = '100%';
-      svg.style.maxHeight = '100%';
-      svg.style.transform = 'scale(2.2)';
-      svg.style.transformOrigin = 'center center';
-      svg.style.display = 'block';
-      svg.style.margin = '0 auto';
-      svg.style.position = 'relative';
-      svg.style.top = '0%';
-      svg.style.left = '95%';
-      svg.style.transform = 'translate(-50%, -50%) scale(2.8)';
-      
-      // 設置透明背景
-      svg.style.backgroundColor = 'transparent';
-      
-      // 設置 SVG 內部元素的樣式
-      const paths = svg.querySelectorAll('path');
-      paths.forEach((path: SVGPathElement) => {
-        path.style.strokeWidth = '3';
-        path.style.stroke = '#ffffff';
-        path.style.fill = '#ffffff';
-        path.style.opacity = '0.8';
-        path.style.transform = 'scale(0.8)';
-        path.style.transformOrigin = 'center center';
-      });
-      
-      console.log('SVG 樣式設置完成，背景已設為透明，圖示已放大');
-    } else {
+    if (!svg) {
       console.error('找不到 SVG 元素');
+      return;
     }
-  };
 
-  const loadMap = async () => {
+    // 設置 SVG 容器樣式
+    svg.style.width = '100%';
+    svg.style.height = '100%';
+    svg.style.maxWidth = '100%';
+    svg.style.maxHeight = '100%';
+    svg.style.transform = 'scale(2.2)';
+    svg.style.transformOrigin = 'center center';
+    svg.style.display = 'block';
+    svg.style.margin = '0 auto';
+    svg.style.position = 'relative';
+    svg.style.top = '0%';
+    svg.style.left = '95%';
+    svg.style.transform = 'translate(-50%, -50%) scale(2.8)';
+    svg.style.backgroundColor = 'transparent';
+    svg.style.background = 'transparent';
+    
+    // 設置 viewBox
+    svg.setAttribute('viewBox', '0 0 1440 778');
+    
+    // 移除背景元素
+    const backgroundElements = svg.querySelectorAll('path[fill="#505050"], path[class*="bg"], rect[fill="#505050"]');
+    backgroundElements.forEach(element => {
+      const htmlElement = element as HTMLElement;
+      htmlElement.style.fill = 'transparent';
+      htmlElement.style.display = 'none';
+    });
+    
+    // 設置地圖路徑樣式
+    const paths = svg.querySelectorAll('path:not([fill="#505050"])');
+    paths.forEach((path, index) => {
+      const htmlElement = path as HTMLElement;
+      htmlElement.style.strokeWidth = '3';
+      htmlElement.style.stroke = '#ffffff';
+      htmlElement.style.fill = '#ffffff';
+      htmlElement.style.opacity = '0.8';
+      htmlElement.style.cursor = 'pointer';
+      htmlElement.style.transition = 'all 0.3s ease';
+      
+      // 添加 ID 以便動畫識別
+      if (!htmlElement.id) {
+        htmlElement.id = `county-${index}`;
+      }
+      
+      // 設置初始動畫狀態
+      htmlElement.style.opacity = '0.8';
+      htmlElement.style.transform = 'scale(0.8)';
+      htmlElement.style.transformOrigin = 'center center';
+    });
+    
+    console.log('SVG 樣式設置完成');
+  }, []);
+
+  // 暴露方法給父組件
+  useImperativeHandle(ref, () => ({
+    getCountyElements,
+    getCenterLightElement
+  }), [getCountyElements, getCenterLightElement]);
+
+  // 優化的地圖載入邏輯
+  const loadMap = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -70,7 +134,7 @@ const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
       console.log('開始載入地圖...');
 
       // 檢查緩存
-      const cacheKey = 'taiwan-map-svg';
+      const cacheKey = 'taiwan-map-svg-v2';
       const cachedSvg = sessionStorage.getItem(cacheKey);
       
       if (cachedSvg) {
@@ -81,13 +145,14 @@ const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
         return;
       }
 
-      // 使用 fetch 載入 SVG 內容，添加緩存控制
+      // 使用 fetch 載入 SVG 內容
       const response = await fetch('/Edu_macth_PRO/taiwan-map.svg', {
         cache: 'force-cache',
         headers: {
           'Cache-Control': 'max-age=31536000'
         }
       });
+      
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -101,106 +166,74 @@ const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
       // 直接設置 innerHTML
       mapRef.current.innerHTML = svgText;
       
+      // 設置樣式
       setupMapStyles();
       setIsLoading(false);
-    } catch (error) {
-      console.error('載入地圖失敗:', error);
-      setError('載入地圖失敗，請重新整理頁面');
+
+    } catch (err) {
+      console.error('載入地圖時發生錯誤:', err);
+      setError('地圖載入失敗，請重新整理頁面');
       setIsLoading(false);
     }
-  };
-
-  // 暴露給父組件的方法
-  useImperativeHandle(ref, () => ({
-    highlightCounty: (county: string) => {
-      if (!mapRef.current) return;
-      const paths = mapRef.current.querySelectorAll('path');
-      paths.forEach((path: SVGPathElement) => {
-        if (path.getAttribute('data-county') === county) {
-          path.style.fill = '#3b82f6';
-          path.style.opacity = '1';
-        }
-      });
-    },
-    resetHighlights: () => {
-      if (!mapRef.current) return;
-      const paths = mapRef.current.querySelectorAll('path');
-      paths.forEach((path: SVGPathElement) => {
-        path.style.fill = '#ffffff';
-        path.style.opacity = '0.8';
-      });
-    }
-  }));
+  }, [setupMapStyles]);
 
   useEffect(() => {
     loadMap();
-  }, []);
-
-  useEffect(() => {
-    if (!mapRef.current || isLoading) return;
-
-    const paths = mapRef.current.querySelectorAll('path');
-    paths.forEach((path: SVGPathElement) => {
-      // 重置樣式
-      path.style.fill = '#ffffff';
-      path.style.opacity = '0.8';
-      
-      // 高亮指定的縣市
-      const countyName = path.getAttribute('data-county');
-      if (countyName && highlightCounties.includes(countyName)) {
-        path.style.fill = '#3b82f6';
-        path.style.opacity = '1';
-      }
-      
-      // 添加點擊事件
-      if (onCountyClick) {
-        path.style.cursor = 'pointer';
-        path.addEventListener('click', () => {
-          if (countyName) {
-            onCountyClick(countyName);
-          }
-        });
-      }
-    });
-  }, [highlightCounties, onCountyClick, isLoading]);
+  }, [loadMap]);
 
   if (error) {
     return (
-      <div className={`flex items-center justify-center h-64 bg-gray-100 rounded-lg ${className}`}>
+      <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
         <div className="text-center">
-          <p className="text-red-600 mb-2">地圖載入失敗</p>
-          <button 
-            onClick={loadMap}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            重新載入
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className={`flex items-center justify-center h-64 bg-gray-100 rounded-lg ${className}`}>
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">載入地圖中...</p>
+          <div className="text-red-500 mb-2">⚠️</div>
+          <p className="text-gray-600">{error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div 
-      ref={mapRef} 
-      className={`relative ${className}`}
-      style={{ 
-        width: '100%', 
-        height: '100%',
-        minHeight: '300px'
-      }}
-    />
+    <div className="w-full h-full relative bg-transparent rounded-lg overflow-hidden">
+      {isLoading && (
+        <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-10">
+          <motion.div
+            className="flex flex-col items-center space-y-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <motion.div
+              className="w-8 h-8 border-2 border-brand-blue border-t-transparent rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            />
+            <span className="text-sm text-gray-600">載入地圖中...</span>
+          </motion.div>
+        </div>
+      )}
+      
+      <motion.div
+        ref={mapRef}
+        className="w-full h-full"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      />
+      
+      {/* 圖例 */}
+      {highlightCounties.length > 0 && !isLoading && (
+        <motion.div 
+          className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 z-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 bg-brand-orange rounded-full"></div>
+            <span className="text-sm text-gray-600">有需求的縣市</span>
+          </div>
+        </motion.div>
+      )}
+    </div>
   );
 });
 

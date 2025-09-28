@@ -239,9 +239,14 @@ const MapSection = () => {
           <div ref={mapRef} className="relative w-full order-2 lg:order-1">
             <div className="relative h-[400px] sm:h-[450px] md:h-[500px] lg:h-[600px] w-full flex items-start justify-center overflow-hidden pt-4 sm:pt-6 lg:pt-8">
               <div className="w-full h-full relative flex items-center justify-center">
-                <TaiwanMap 
-                  ref={taiwanMapRef}
-                />
+                  <TaiwanMap 
+                    ref={taiwanMapRef}
+                    showAnimations={true}
+                    highlightCounties={['台北市', '新北市', '桃園市', '台中市', '台南市', '高雄市']}
+                    onCountyClick={(countyId) => {
+                      console.log('點擊縣市:', countyId);
+                    }}
+                  />
               
                 {/* 學校標記 */}
                 {mockSchoolData.map((school) => {

@@ -1,109 +1,118 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { useSmartPreload } from '../../hooks/useSmartPreload';
 
 const HeroSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
-
-  // 智能預載入關鍵資源
-  const { isLoading: assetsLoading, loadingProgress } = useSmartPreload({
-    criticalAssets: [
-      '/Edu_macth_PRO/videos/taiwan-education-poster.jpg', // 優先載入封面
-      '/Edu_macth_PRO/images/bg-1.jpg', // 主要背景
-      '/Edu_macth_PRO/images/bg-2.jpg'  // 次要背景
-    ],
-    lazyAssets: [
-      '/Edu_macth_PRO/videos/taiwan-education.mp4', // 影片延遲載入
-      '/Edu_macth_PRO/images/bg-3.jpg',
-      '/Edu_macth_PRO/images/bg-4.jpg'
-    ],
-    preloadThreshold: 3000 // 3秒後開始懶載入
-  });
-
-  // 影片預載入優化
-  useEffect(() => {
-    if (!assetsLoading && videoRef.current) {
-      const video = videoRef.current;
-      
-      // 設置影片載入策略
-      video.preload = 'metadata';
-      video.load();
-      
-      // 監聽載入事件
-      const handleCanPlay = () => {
-        console.log('影片可以播放');
-        setVideoLoaded(true);
-      };
-      
-      const handleError = () => {
-        console.log('影片載入失敗');
-        setVideoError(true);
-      };
-      
-      video.addEventListener('canplay', handleCanPlay);
-      video.addEventListener('error', handleError);
-      
-      return () => {
-        video.removeEventListener('canplay', handleCanPlay);
-        video.removeEventListener('error', handleError);
-      };
-    }
-  }, [assetsLoading]);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   // 標題文字，以詞為單位分割
   const titleText = "每個孩子，都值得最好的教育";
   const titleWords = ["每個", "孩子", "，", "都", "值得", "最好", "的", "教育"];
 
+  // 優化的影片載入處理
+  const handleVideoLoad = useCallback(() => {
+    setVideoLoaded(true);
+    console.log('影片載入完成');
+  }, []);
+
+  const handleVideoError = useCallback(() => {
+    setVideoError(true);
+    console.error('影片載入失敗');
+  }, []);
+
+  const handleVideoPlay = useCallback(() => {
+    setIsVideoPlaying(true);
+  }, []);
+
+  const handleVideoPause = useCallback(() => {
+    setIsVideoPlaying(false);
+  }, []);
+
   useEffect(() => {
     const video = videoRef.current;
-    if (video) {
-      video.addEventListener('loadeddata', () => setVideoLoaded(true));
-      video.addEventListener('error', () => setVideoError(true));
-      
-      // 嘗試播放影片
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // 如果自動播放失敗，這是正常的，因為瀏覽器政策
-          console.log('影片自動播放被阻止，這是正常的');
+    if (!video) return;
+
+    // 添加事件監聽器
+    video.addEventListener('loadeddata', handleVideoLoad);
+    video.addEventListener('error', handleVideoError);
+    video.addEventListener('play', handleVideoPlay);
+    video.addEventListener('pause', handleVideoPause);
+    
+    // 嘗試播放影片
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log('影片開始播放');
+        })
+        .catch((error) => {
+          console.log('影片自動播放被阻止，這是正常的:', error);
         });
-      }
     }
-  }, []);
+
+    // 清理函數
+    return () => {
+      video.removeEventListener('loadeddata', handleVideoLoad);
+      video.removeEventListener('error', handleVideoError);
+      video.removeEventListener('play', handleVideoPlay);
+      video.removeEventListener('pause', handleVideoPause);
+    };
+  }, [handleVideoLoad, handleVideoError, handleVideoPlay, handleVideoPause]);
 
   return (
     <section 
       ref={sectionRef} 
       className="h-[120vh] relative flex items-center justify-center overflow-hidden"
     >
-      {/* 載入進度指示器 */}
-      {assetsLoading && (
-        <div className="absolute inset-0 z-50 bg-black/50 flex items-center justify-center">
-          <div className="text-center text-white">
-            <div className="w-16 h-16 border-4 border-white/30 border-t-white rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-lg font-medium">載入中... {Math.round(loadingProgress)}%</p>
-          </div>
-        </div>
-      )}
-
       {/* 背景影片 */}
-      {!videoError && !assetsLoading && (
-        <video
+      {!videoError && (
+        <motion.video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover z-0"
           autoPlay
           muted
           loop
           playsInline
-          preload="none"
+          preload="metadata"
           poster="/Edu_macth_PRO/videos/taiwan-education-poster.jpg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: videoLoaded ? 1 : 0 }}
+          transition={{ duration: 0.8 }}
         >
           <source src="/Edu_macth_PRO/videos/taiwan-education.mp4" type="video/mp4" />
           您的瀏覽器不支援影片播放。
-        </video>
+        </motion.video>
+      )}
+
+      {/* 影片載入指示器 */}
+      {!videoLoaded && !videoError && (
+        <motion.div 
+          className="absolute inset-0 z-10 flex items-center justify-center bg-gray-900/50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="text-center text-white">
+            <motion.div
+              className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full mx-auto mb-4"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+            />
+            <p className="text-lg font-medium">載入影片中...</p>
+          </div>
+        </motion.div>
+      )}
+
+      {/* 影片錯誤備用背景 */}
+      {videoError && (
+        <motion.div 
+          className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        />
       )}
 
       {/* 備用背景 - 當影片載入失敗或未載入時顯示 */}

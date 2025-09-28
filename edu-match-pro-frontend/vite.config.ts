@@ -18,14 +18,6 @@ export default defineConfig({
           ui: ['@headlessui/react', '@heroicons/react']
         }
       }
-    },
-    // 優化構建性能
-    minify: 'esbuild'
-  },
-  // 開發服務器優化
-  server: {
-    headers: {
-      'Cache-Control': 'public, max-age=31536000'
     }
   }
 })
