@@ -23,31 +23,18 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // 優化的縣市元素獲取
+  // 優化的縣市元素獲取 - 現在返回圖片元素
   const getCountyElements = useCallback(() => {
     if (!mapRef.current) return [];
     
-    const countySelectors = [
-      'g[id^="county-"]',
-      'g[id*="county"]',
-      'path[id^="county-"]',
-      'path[id*="county"]',
-      'g[class*="county"]',
-      'path[class*="county"]'
-    ];
-    
-    for (const selector of countySelectors) {
-      const found = Array.from(mapRef.current.querySelectorAll(selector)) as SVGGElement[];
-      if (found.length > 0) {
-        console.log(`使用選擇器 ${selector} 找到 ${found.length} 個元素`);
-        return found;
-      }
+    const img = mapRef.current.querySelector('img');
+    if (img) {
+      console.log('找到地圖圖片元素');
+      return [img as unknown as SVGGElement];
     }
     
-    // 備用方案：使用所有 path 元素
-    const fallbackElements = Array.from(mapRef.current.querySelectorAll('path')) as SVGGElement[];
-    console.log(`使用通用 path 選擇器找到 ${fallbackElements.length} 個元素`);
-    return fallbackElements;
+    console.log('未找到地圖圖片元素');
+    return [];
   }, []);
 
   const getCenterLightElement = useCallback(() => {
@@ -55,7 +42,7 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
     return mapRef.current.querySelector('#center-light') as SVGGElement | null;
   }, []);
 
-  // 簡化的樣式設置函數 - 針對 JPG 圖片
+  // 優化的樣式設置函數 - 處理 JPG 圖片
   const setupMapStyles = useCallback(() => {
     if (!mapRef.current) return;
     
@@ -68,19 +55,16 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
     // 設置圖片樣式
     img.style.width = '100%';
     img.style.height = '100%';
+    img.style.maxWidth = '100%';
+    img.style.maxHeight = '100%';
     img.style.objectFit = 'contain';
     img.style.objectPosition = 'center';
+    img.style.display = 'block';
+    img.style.margin = '0 auto';
+    img.style.position = 'relative';
+    img.style.cursor = 'pointer';
     img.style.transition = 'all 0.3s ease';
-    img.style.filter = 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))';
-    
-    // 添加懸停效果
-    img.addEventListener('mouseenter', () => {
-      img.style.transform = 'scale(1.05)';
-    });
-    
-    img.addEventListener('mouseleave', () => {
-      img.style.transform = 'scale(1)';
-    });
+    img.style.filter = 'brightness(1.1) contrast(1.1)';
     
     console.log('地圖圖片樣式設置完成');
   }, []);
@@ -131,7 +115,7 @@ export const TaiwanMap = forwardRef<TaiwanMapRef, TaiwanMapProps>(({
       setError('地圖載入失敗，請重新整理頁面');
       setIsLoading(false);
     }
-  }, []);
+  }, [setupMapStyles]);
 
   useEffect(() => {
     loadMap();
