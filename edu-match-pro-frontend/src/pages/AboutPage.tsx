@@ -95,14 +95,14 @@ const AboutPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            
           >
             <div className="w-full h-96 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
               <div className="text-center">
@@ -116,7 +116,7 @@ const AboutPage = () => {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            
           >
             <h2 className="text-3xl font-bold text-gray-900 mb-6">一個改變的開始</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -140,7 +140,7 @@ const AboutPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -149,7 +149,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              
             >
               我們的使命
             </motion.h2>
@@ -158,7 +158,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
+              
             >
               我們相信，每個孩子都值得最好的教育。透過科技的力量，我們要讓台灣的每一間學校、每一個孩子，都能擁有平等的學習機會，點亮屬於他們的未來。
             </motion.p>
@@ -172,7 +172,7 @@ const AboutPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                
               >
                 <div className={`w-16 h-16 bg-${value.color}-100 rounded-full flex items-center justify-center mx-auto mb-4`}>
                   <value.icon className={`w-8 h-8 text-${value.color}-600`} />
@@ -188,7 +188,7 @@ const AboutPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
+            
           >
             <p className="text-lg opacity-90 max-w-4xl mx-auto leading-relaxed">
               我們相信，真正的教育公平不是讓每個人都擁有相同的資源，而是讓每個人都能獲得最適合的資源。透過 AI 技術的深度分析，我們能夠精準識別每個學校的實際需求，並將其與最合適的企業 ESG 目標進行媒合，創造最大的社會價值。
@@ -203,7 +203,7 @@ const AboutPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">幕後推手</h2>
@@ -218,7 +218,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-6xl mb-4">{member.avatar}</div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
@@ -235,7 +235,7 @@ const AboutPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -244,7 +244,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
+              
             >
               我們的影響力
             </motion.h2>
@@ -253,7 +253,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
+              
             >
               用數據說話，用行動證明
             </motion.p>
@@ -264,7 +264,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2 text-blue-400">300+</div>
               <div className="text-gray-300">偏鄉學校</div>
@@ -273,7 +273,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2 text-green-400">500+</div>
               <div className="text-gray-300">合作企業</div>
@@ -282,7 +282,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2 text-purple-400">1,200+</div>
               <div className="text-gray-300">成功媒合</div>
@@ -291,7 +291,7 @@ const AboutPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2 text-orange-400">95%</div>
               <div className="text-gray-300">滿意度</div>

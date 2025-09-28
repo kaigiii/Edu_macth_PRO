@@ -70,7 +70,7 @@ const ForCompaniesPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Precision Card */}
@@ -79,7 +79,7 @@ const ForCompaniesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
+            
           >
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <TagIcon className="w-8 h-8 text-blue-600" />
@@ -96,7 +96,7 @@ const ForCompaniesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
+            
           >
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <LinkIcon className="w-8 h-8 text-green-600" />
@@ -113,7 +113,7 @@ const ForCompaniesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
+            
           >
             <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <ArrowTrendingUpIcon className="w-8 h-8 text-purple-600" />
@@ -132,7 +132,7 @@ const ForCompaniesPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
@@ -140,7 +140,7 @@ const ForCompaniesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2">500+</div>
               <div className="text-blue-200">合作企業</div>
@@ -149,7 +149,7 @@ const ForCompaniesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2">1,200+</div>
               <div className="text-blue-200">成功媒合</div>
@@ -158,7 +158,7 @@ const ForCompaniesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2">300+</div>
               <div className="text-blue-200">偏鄉學校</div>
@@ -167,7 +167,7 @@ const ForCompaniesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-4xl font-bold mb-2">95%</div>
               <div className="text-blue-200">滿意度</div>
@@ -182,7 +182,7 @@ const ForCompaniesPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">信賴我們的夥伴</h2>
@@ -197,7 +197,7 @@ const ForCompaniesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              
             >
               <div className="text-center">
                 <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-2">
@@ -216,7 +216,7 @@ const ForCompaniesPage = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
+        
       >
         <div className="container mx-auto px-4 text-center">
           <motion.h2 
@@ -224,7 +224,7 @@ const ForCompaniesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
+            
           >
             準備開始您的 ESG 旅程？
           </motion.h2>
@@ -233,7 +233,7 @@ const ForCompaniesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
+            
           >
             加入我們，讓每一次捐贈都成為改變社會的力量
           </motion.p>
@@ -241,7 +241,7 @@ const ForCompaniesPage = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
+            
           >
             <Link 
               to="/register"
