@@ -121,15 +121,34 @@ npx json-server --watch db.json --port 3001
 
 ## 部署說明
 
-### 建構生產版本
-```bash
-npm run build
-```
+### GitHub Pages 自動部署
+專案已配置 GitHub Actions 自動部署到 GitHub Pages：
 
-### 預覽生產版本
+1. **自動部署**：每次推送到 `main` 分支時會自動構建並部署
+2. **訪問地址**：https://kaigiii.github.io/Edu_macth_PRO/
+3. **部署狀態**：可在 GitHub 倉庫的 "Actions" 標籤查看部署狀態
+
+### 本地建構
 ```bash
+# 進入前端目錄
+cd edu-match-pro-frontend
+
+# 安裝依賴
+npm install
+
+# 建構生產版本
+npm run build
+
+# 預覽生產版本
 npm run preview
 ```
+
+### 手動部署到 GitHub Pages
+如果自動部署失敗，可以手動部署：
+
+1. 在 GitHub 倉庫設置中啟用 GitHub Pages
+2. 選擇 "GitHub Actions" 作為部署源
+3. 推送代碼到 main 分支觸發部署
 
 ## 貢獻指南
 
