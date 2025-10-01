@@ -97,6 +97,9 @@ class ApiService {
 
   // 獲取備用數據
   private getFallbackData<T>(endpoint: string): T {
+    console.log('ApiService: getFallbackData called for endpoint:', endpoint);
+    console.log('ApiService: fallbackData keys:', Object.keys(this.fallbackData));
+    
     const fallbackMap: Record<string, string> = {
       '/school_needs': 'schoolNeeds',
       '/company_dashboard_stats': 'companyDashboardStats',
@@ -110,10 +113,14 @@ class ApiService {
     };
 
     const dataKey = fallbackMap[endpoint];
+    console.log('ApiService: dataKey for endpoint:', dataKey);
+    
     if (dataKey && this.fallbackData[dataKey]) {
+      console.log('ApiService: returning fallback data for', dataKey, 'length:', this.fallbackData[dataKey]?.length);
       return this.fallbackData[dataKey];
     }
 
+    console.error('ApiService: No fallback data available for', endpoint);
     throw new Error(`No fallback data available for ${endpoint}`);
   }
 
@@ -166,7 +173,10 @@ class ApiService {
 
   // 影響力故事 API
   async getImpactStories(): Promise<ImpactStory[]> {
-    return this.request<ImpactStory[]>('/impact_stories');
+    console.log('ApiService: getImpactStories called');
+    const result = await this.request<ImpactStory[]>('/impact_stories');
+    console.log('ApiService: getImpactStories result:', result);
+    return result;
   }
 
   // 用戶相關 API

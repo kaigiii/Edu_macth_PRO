@@ -5,6 +5,15 @@ import type { ImpactStory } from '../types';
 const ImpactStoriesPage = () => {
   const { data: stories, isLoading, error, isUsingFallback } = useApi<ImpactStory[]>('http://localhost:3001/impact_stories');
 
+  // 調試信息
+  console.log('ImpactStoriesPage Debug:', {
+    stories,
+    isLoading,
+    error,
+    isUsingFallback,
+    storiesLength: stories?.length
+  });
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-64">
@@ -16,7 +25,10 @@ const ImpactStoriesPage = () => {
   if (error) {
     return (
       <div className="flex justify-center items-center min-h-64">
-        <div className="text-lg text-red-600">資料載入失敗...</div>
+        <div className="text-lg text-red-600">
+          資料載入失敗: {error.message}
+          {isUsingFallback && <div className="text-sm text-gray-500 mt-2">使用本地數據</div>}
+        </div>
       </div>
     );
   }
