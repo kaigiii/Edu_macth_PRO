@@ -1,9 +1,13 @@
 import uuid
 from sqlmodel import SQLModel, Field, Relationship, ForeignKey, Column
-from typing import Optional, List
+from typing import Optional, List, TYPE_CHECKING
 from enum import Enum
 from sqlalchemy import ARRAY, Integer
 from app.models.base import BaseModel
+
+if TYPE_CHECKING:
+    from app.models.user import User
+    from app.models.donation import Donation
 
 
 class UrgencyLevel(str, Enum):

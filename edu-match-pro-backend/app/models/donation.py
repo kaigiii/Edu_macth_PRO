@@ -1,9 +1,14 @@
 import uuid
 from datetime import datetime
 from sqlmodel import SQLModel, Field, Relationship, ForeignKey
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from enum import Enum
 from app.models.base import BaseModel
+
+if TYPE_CHECKING:
+    from app.models.user import User
+    from app.models.need import Need
+    from app.models.impact_story import ImpactStory
 
 
 class DonationStatus(str, Enum):

@@ -1,6 +1,9 @@
 from sqlmodel import SQLModel, Field, Relationship, ForeignKey
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 from app.models.base import BaseModel
+
+if TYPE_CHECKING:
+    from app.models.user import User
 
 
 class Profile(BaseModel, table=True):

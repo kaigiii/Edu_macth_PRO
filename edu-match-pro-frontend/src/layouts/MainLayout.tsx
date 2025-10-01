@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 
@@ -48,26 +48,26 @@ const MainLayout = () => {
               <h4 className="text-lg font-semibold mb-4">快速導航</h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <a href="/about" className="block text-gray-300 hover:text-white transition-colors duration-200">
+                  <Link to="/about" className="block text-gray-300 hover:text-white transition-colors duration-200">
                     關於我們
-                  </a>
-                  <a href="/stories" className="block text-gray-300 hover:text-white transition-colors duration-200">
+                  </Link>
+                  <Link to="/stories" className="block text-gray-300 hover:text-white transition-colors duration-200">
                     影響力故事
-                  </a>
-                  <a href="/needs" className="block text-gray-300 hover:text-white transition-colors duration-200">
+                  </Link>
+                  <Link to="/needs" className="block text-gray-300 hover:text-white transition-colors duration-200">
                     探索需求
-                  </a>
+                  </Link>
                 </div>
                 <div className="space-y-2">
-                  <a href="/faq" className="block text-gray-300 hover:text-white transition-colors duration-200">
-                    常見問題
-                  </a>
-                  <a href="/contact" className="block text-gray-300 hover:text-white transition-colors duration-200">
-                    聯絡我們
-                  </a>
-                  <a href="/privacy" className="block text-gray-300 hover:text-white transition-colors duration-200">
-                    隱私政策
-                  </a>
+                  <Link to="/for-schools" className="block text-gray-300 hover:text-white transition-colors duration-200">
+                    學校專區
+                  </Link>
+                  <Link to="/for-companies" className="block text-gray-300 hover:text-white transition-colors duration-200">
+                    企業專區
+                  </Link>
+                  <Link to="/login" className="block text-gray-300 hover:text-white transition-colors duration-200">
+                    登入/註冊
+                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -161,15 +161,15 @@ const MainLayout = () => {
                 <p className="text-xs mt-1">由 范愷鈞、劉竑毅、史靖崴 共同打造</p>
               </div>
               <div className="flex space-x-6 text-sm">
-                <a href="/terms" className="text-gray-400 hover:text-white transition-colors duration-200">
+                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors duration-200">
                   服務條款
-                </a>
-                <a href="/privacy" className="text-gray-400 hover:text-white transition-colors duration-200">
+                </Link>
+                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors duration-200">
                   隱私政策
-                </a>
-                <a href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200">
+                </Link>
+                <Link to="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200">
                   Cookie 政策
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

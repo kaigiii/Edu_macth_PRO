@@ -3,12 +3,18 @@
   "venv": ".venv",
   "pythonVersion": "3.11",
   "include": [
-    "app"
+    "app",
+    "main.py"
   ],
   "exclude": [
     "**/node_modules",
-    "**/__pycache__"
+    "**/__pycache__",
+    "**/alembic/versions"
   ],
   "reportMissingImports": "warning",
-  "reportMissingModuleSource": "warning"
+  "reportMissingModuleSource": "warning",
+  "reportUndefinedVariable": "warning",
+  "typeCheckingMode": "basic",
+  "useLibraryCodeForTypes": true,
+  "pythonPlatform": "Linux"
 }

@@ -6,14 +6,14 @@ from app.models.base import BaseModel
 
 
 class ActivityType(str, Enum):
-    USER_REGISTER = "user_register"
-    USER_LOGIN = "user_login"
-    NEED_CREATED = "need_created"
-    NEED_UPDATED = "need_updated"
-    DONATION_CREATED = "donation_created"
-    DONATION_APPROVED = "donation_approved"
-    DONATION_COMPLETED = "donation_completed"
-    IMPACT_STORY_CREATED = "impact_story_created"
+    user_register = "user_register"
+    user_login = "user_login"
+    need_created = "need_created"
+    need_updated = "need_updated"
+    donation_created = "donation_created"
+    donation_approved = "donation_approved"
+    donation_completed = "donation_completed"
+    impact_story_created = "impact_story_created"
 
 
 class ActivityLog(BaseModel, table=True):
