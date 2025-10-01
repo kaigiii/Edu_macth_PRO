@@ -186,7 +186,7 @@ export const impactStories: ImpactStory[] = [
     title: "孩子們眼中的星星：台積電志工帶來的程式設計課",
     schoolName: "花蓮縣秀林鄉銅門國小",
     companyName: "台積電",
-    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/01.jpg`,
     summary: "『老師，我長大也要當工程師！』這是小明第一次寫出『Hello World』時興奮地對我們說的話。感謝台積電的志工們，不僅捐贈了 15 台筆記型電腦，更每週親自到校教學，讓山區的孩子們也能接觸到最先進的程式設計知識。",
     storyDate: "2024-12-15",
     impact: {
@@ -200,7 +200,7 @@ export const impactStories: ImpactStory[] = [
     title: "從山區到雲端：鴻海工程師的遠距程式課",
     schoolName: "南投縣信義鄉羅娜國小",
     companyName: "鴻海科技",
-    imageUrl: "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/02.jpg`,
     summary: "『我們雖然在山區，但心可以飛到全世界！』這是孩子們學會使用 Scratch 創作動畫後的心聲。鴻海的工程師們利用週末時間，為我們帶來了 12 週的線上程式設計課程，讓孩子們的創意得以在數位世界中綻放。",
     storyDate: "2024-11-20",
     impact: {
@@ -214,7 +214,7 @@ export const impactStories: ImpactStory[] = [
     title: "陽光下的夢想：統一企業讓足球隊重燃希望",
     schoolName: "台東縣長濱鄉長濱國小",
     companyName: "統一企業",
-    imageUrl: "https://images.unsplash.com/photo-1521464307224-48e137f6b93a?q=80&w=1170",
+    imageUrl: `${import.meta.env.PROD ? '/Edu_macth_PRO' : ''}/images/impact-stories/background-wall/03.jpg`,
     summary: "『我們終於可以參加全國比賽了！』足球隊隊長小華抱著新足球，眼中閃爍著希望的光芒。統一企業不僅捐贈了 20 顆新足球和 2 個球門，更贊助了球隊的訓練經費，讓孩子們的足球夢想得以實現。",
     storyDate: "2024-10-30",
     impact: {
