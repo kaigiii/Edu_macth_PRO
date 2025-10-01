@@ -31,7 +31,8 @@ const getEndpointFromUrl = (url: string): string => {
 
 // 檢查是否為單個資源請求（包含 ID）
 const isSingleResourceRequest = (url: string): boolean => {
-  return /\/([^\/]+)$/.test(url) && !url.includes('/school_needs') && !url.includes('/company_dashboard_stats');
+  // 只有當 URL 包含 ID 模式（如 /school_needs/123）時才是單個資源請求
+  return /\/([^\/]+)\/([^\/]+)$/.test(url) && url.includes('/school_needs/');
 };
 
 // 獲取單個資源的 ID
