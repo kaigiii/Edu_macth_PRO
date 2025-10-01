@@ -1,10 +1,19 @@
 import { useParams } from 'react-router-dom';
-import useFetch from '../hooks/useFetch';
+import { useApi } from '../hooks/useApi';
 import type { SchoolNeed } from '../types';
 
 const NeedDetailPage = () => {
   const { needId } = useParams();
-  const { data: need, isLoading, error } = useFetch<SchoolNeed>(`http://localhost:3001/school_needs/${needId}`);
+  const { data: need, isLoading, error, isUsingFallback } = useApi<SchoolNeed>(`http://localhost:3001/school_needs/${needId}`);
+
+  // 調試信息
+  console.log('NeedDetailPage Debug:', {
+    needId,
+    need,
+    isLoading,
+    error,
+    isUsingFallback
+  });
 
   if (isLoading) {
     return (

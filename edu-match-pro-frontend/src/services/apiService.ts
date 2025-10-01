@@ -130,7 +130,10 @@ class ApiService {
   }
 
   async getSchoolNeedById(id: string): Promise<SchoolNeed> {
-    return this.request<SchoolNeed>(`/school_needs/${id}`);
+    console.log('ApiService: getSchoolNeedById called with id:', id);
+    const result = await this.request<SchoolNeed>(`/school_needs/${id}`);
+    console.log('ApiService: getSchoolNeedById result:', result);
+    return result;
   }
 
   async createSchoolNeed(need: Omit<SchoolNeed, 'id'>): Promise<SchoolNeed> {

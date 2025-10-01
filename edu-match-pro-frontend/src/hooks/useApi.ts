@@ -37,7 +37,10 @@ const isSingleResourceRequest = (url: string): boolean => {
 
 // 獲取單個資源的 ID
 const getResourceId = (url: string): string | null => {
+  // 對於 URL 如 http://localhost:3001/school_needs/need-001
+  // 提取最後一個路徑段作為 ID
   const match = url.match(/\/([^\/]+)$/);
+  console.log('getResourceId: url=', url, 'match=', match);
   return match ? match[1] : null;
 };
 
