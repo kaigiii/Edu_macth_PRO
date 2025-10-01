@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import NeedCard from '../components/NeedCard';
-import useFetch from '../hooks/useFetch';
+import { useApi } from '../hooks/useApi';
 import type { SchoolNeed } from '../types';
 
 const ExploreNeedsPage = () => {
-  const { data: needs, isLoading, error } = useFetch<SchoolNeed[]>('http://localhost:3001/school_needs');
+  const { data: needs, isLoading, error, isUsingFallback } = useApi<SchoolNeed[]>('http://localhost:3001/school_needs');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
 
