@@ -1,9 +1,27 @@
-import useFetch from '../hooks/useFetch';
+import { useState, useEffect } from 'react';
 import StoryCard from '../components/StoryCard';
 import type { ImpactStory } from '../types';
 
 const ImpactStoriesPage = () => {
-  const { data: stories, isLoading, error } = useFetch<ImpactStory[]>('http://localhost:3001/impact_stories');
+  const [stories, setStories] = useState<ImpactStory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        // 直接使用靜態數據，不依賴後端服務器
+        const { impactStories } = await import('../data/staticData');
+        setStories(impactStories);
+      } catch (err) {
+        setError(err instanceof Error ? err : new Error('載入影響力故事失敗'));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, []);
 
   if (isLoading) {
     return (
