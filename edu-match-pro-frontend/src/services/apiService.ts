@@ -100,6 +100,21 @@ class ApiService {
     console.log('ApiService: getFallbackData called for endpoint:', endpoint);
     console.log('ApiService: fallbackData keys:', Object.keys(this.fallbackData));
     
+    // 處理單個資源請求（如 /school_needs/need-001）
+    if (endpoint.startsWith('/school_needs/')) {
+      const needId = endpoint.split('/').pop();
+      console.log('ApiService: looking for single need with id:', needId);
+      
+      if (this.fallbackData.schoolNeeds && Array.isArray(this.fallbackData.schoolNeeds)) {
+        const need = this.fallbackData.schoolNeeds.find((n: any) => n.id === needId);
+        if (need) {
+          console.log('ApiService: found single need:', need);
+          return need as T;
+        }
+      }
+      throw new Error(`No fallback data available for single need: ${endpoint}`);
+    }
+    
     const fallbackMap: Record<string, string> = {
       '/school_needs': 'schoolNeeds',
       '/company_dashboard_stats': 'companyDashboardStats',
